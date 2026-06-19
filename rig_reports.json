@@ -1,8 +1,8 @@
 {
   "meta": {
     "source": "Daily Rig Report emails from Jorge Macias (JMacias@ewscorp.net), EWS Corp",
-    "last_email_date": "2026-06-09T06:00:48Z",
-    "last_email_id": "19eaaf85626a38e0",
+    "last_email_date": "2026-06-19T04:22:08Z",
+    "last_email_id": "19ede1d9269f48c3",
     "current_rig_well": "A-7I",
     "current_rig_well_display": "A-7i",
     "note": "Archive seeded 2026-06-05 from Gmail; backfilled 2026-06-05 from EWS daily report workbooks (Engineering/Daily Reports) covering A-17, A-18, B-1, B-2i, A-12, A-10i, A-5, A-6 from 2026-03-23 onward. A-8i reporting begins at Day 3 (no Day 1-2 reports exist in email or workbooks)."
@@ -689,6 +689,101 @@
       "summary": "This was the first day of plug-and-abandonment work on A-7i. After the crew's safety meeting, the workover rig and equipment were moved onto the location, the surface flow lines were locked out, protective plastic was laid down, and the rig was rigged up and guyed in place; the well was opened and the air checked for H2S and other hazardous gases, with none present. The crew removed the wellhead's injection tree and flow lines, but found the 'donut locking rams' (the wellhead components that lock the tubing in place) seized from corrosion and had to replace five damaged ones. They then worked on freeing the tubing hanger (the fitting that suspends the well's internal pipe): an initial pull of 60,000-80,000 lbs would not release it, so after consulting the E&B representative they gradually increased the pull in 10,000-lb steps until it came free at 110,000 lbs. The well was closed in and secured for the night.",
       "full_text": "Held safety meeting with crew & filled out JSA, Move rig & equipment to Angus # A-7i, L.O.T.O flow lines, Install plastic on location, M.I.R.U & guy out rig, Off load tools & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Remove grating from cellar, Remove injection tree & flow lines, Nipple down hub clamps, Unscrew donut locking rams ( Note: Donut locking rams were seized up due corrosion / rust, Change out 5 donut locking rams due damage ) Single out rig, Attempt to un-flanged tubing hanger 60K-80K with no success, Discuss with E&B rep, Decision was made to continue working tubing hanger, Worked tubing hanger free @110K ( Note: Started working tubing hanger @ 80K & increase 10K increments until tubing hanger came free @ 110K ) Close in & secure well overnight, End of shift.",
       "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19eaaf85626a38e0"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 2,
+      "date": "2026-06-09",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 2 )",
+      "phase": "Stuck tubing — freepoint run and tubing cut",
+      "job_complete": false,
+      "summary": "The crew's central problem today was that the well's internal production tubing was stuck and would not pull free. After confirming no hazardous gases were present, they repeatedly tried to work the pipe loose by pulling on it with 50,000 to 90,000 lbs of force, attempted to circulate fluid and pressure up the well, and installed and function-tested the blowout preventer (the well-control safety stack) — but the tubing still would not move. They then called in Raptor Wireline to run a 'free-point' survey, a downhole tool that pinpoints exactly where the pipe is stuck: it showed the tubing completely free down to about 2,510 ft but fully stuck at 2,711 ft. Based on that reading, the crew ran a jet cutter and severed the tubing at 2,540 ft, then pulled 76 joints (roughly 2,500 ft) of the freed pipe out of the hole. The well was closed in and secured overnight; this remains early rig-up and troubleshooting work, not yet the cement-plugging phase.",
+      "full_text": "Held safety meeting with crew & filled out JSA, Open well & monitor atmosphere for H2S & other hazardous gases none present, Un-flange tubing hanger & notice tubing string stuck, Worked tubing string 50K-90K with no success, Discuss with E&B rep, Make up king swivel, Attempt to established circulation & tubing pressure up to 1000-psi, Pump 8 bbls of fluid down casing & pressure up to 500-psi ( Fluid level @ 151' ) Discuss with E&B rep, Waited on JMP to deliver 2-7/8'' tension plate, Un-flange & laydown tubing hanger, Nipple up & function test 8'' 900 series B.O.P ( Note: Strip on BOP ) Continue working tubing string 50K- 90K with no success, Discuss with E&B rep, Decision was made to call out wireline & due a freepoint, Waited on Raptor Wireline ( Note: While waiting on wireline, continue working the tubing string 50K-90K with no success ) Rig up Raptor Wireline, Run in hole with freepoint tool & tag well @ 3036', Tubing tail @ 3236', 200' of fill inside tubing ( Note: 100% free @ 2510', 80% free @ 2543', 70% free @ 2644' & Stuck @ 2711' )  Discuss with E&B rep, Run in hole with jet cutter & cut tubing @ 2540', Rig out Raptor Wireline, Pull out hole with 76 jts of 2-7/8'' eue 8rd tubing, Close in & secure well overnight, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19eafee548637d63"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 3,
+      "date": "2026-06-10",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 3 )",
+      "phase": "Fishing — overshot run, failed to latch fish; possible casing damage",
+      "job_complete": false,
+      "summary": "The crew continued fishing operations to recover the section of production tubing that was cut and left stuck in the well the previous day. They ran a fishing tool (an \"overshot,\" designed to slide over and grip the top of the stuck pipe) into the hole, first cleaning out 148 ft of fill and debris that had settled on top of the fish and circulating the well clean with about 309 barrels of fluid. They then made several attempts to latch onto the stuck pipe but could not get a solid grip — the tool would catch only lightly (a \"friction bite\"), hold about 20,000 lbs of pull, then slip free. After the repeated failed attempts, the crew and the E&B representative decided to pull the tool string back out of the hole and inspect it; the guide shoe came up showing external wear that may indicate damage to the well's casing. The well was closed in and secured overnight — no cement plugs were set and the job is not complete.",
+      "full_text": "Held safety meeting with crew & filled out JSA, Open well & monitor atmosphere for H2S & other hazardous gases none present, Make up 5-3/4'' overshot with 7-1/4'' oversize guide shoe & loaded with 2.875'' grapple, Pick up 4-3/4'' Bumper Sub, 4-3/4'' jars, ( 4 ) 4-3/4'' drill collars, 4-3/4'' accelerator & 3-1/2'' IF x 2-7/8'' eue cross over, Run in hole with 67 jts of 2-7/8'' eue 8rd tubing & tag well @ 2392', TOF @ 2540', 148' of fill clean out, Make up king swivel & established circulation, Circulated fill out from 2392' to 2539', Tag TOF @ 2539', Circulated hole clean 2 hole volumes ( 309 bbls ) Attempt to latch on to fish with no success ( Note: Feels like a friction bite, Pulling 20K over string weight & slip off free, Attempt multiple times with no success ) Discuss with E&B rep, Decision was made to pull out hole & inspected BHA, Pull out hole with 67 jts of 2-7/8'' eue 8rd tubing & BHA ( Note: 7-1/4'' oversize shoe guide showing external wear possible casing damage ) Discuss with E&B rep, Close in & secure well overnight, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19eb51aea061767e"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 4,
+      "date": "2026-06-11",
+      "subject": "Daily Rig Report Angus # A-7i   ( Day 4 )",
+      "phase": "Fishing — fish recovered, wellbore cleanout begun",
+      "job_complete": false,
+      "summary": "Today the crew finally recovered the stuck pipe (the \"fish\") that had stalled the job for two days. They ran a fishing tool called an overshot — a device that slides over the top of the stuck pipe and grips it — down to 2,539 ft, latched onto the fish, and then \"jarred\" on it for two hours, repeatedly delivering 110,000-lb upward impacts with a downhole jarring tool until the pipe broke free. As they pulled the recovered tubing out, they found 22 joints packed solid with fine sand; they cleaned out 21 of them, laid aside one that was plugged solid, and recovered about 21 cubic feet of sand. With the obstruction gone, the crew ran back in with a clean-out assembly, tagged sand fill at 2,578 ft and located the top of the well's inner liner at 3,317 ft — leaving 739 ft of fill still to remove — then washed out the first stretch from 2,578 to 2,666 ft before securing the well overnight. This is still cleanout and troubleshooting work; no cement plugs have been set and the job is not complete.",
+      "full_text": "Held safety meeting with crew & filled out JSA, Open well & monitor atmosphere for H2S & other hazardous gases none present, Make up 5-3/4'' overshot with 6-1/8'' guide shoe & loaded with 2.875'' grapple, 4-3/4'' Bumper Sub, 4-3/4'' jars, ( 4 ) 4-3/4'' drill collars, 4-3/4'' accelerator & 3-1/2'' IF x 2-7/8'' eue cross over, Run in hole with 67 jts of 2-7/8'' eue 8rd tubing & tag well @ 2539', Latch on to fish, Jar on fish for 2-hrs @ 110K & successfully freeing \" fish \", Discuss with E&B rep, Pull out hole with 67 jts of 2-7/8'' eue 8rd tubing & Lay down BHA, Pull out hole with 22 jts of 2-7/8'' eue 8rd open ended tubing ( Note: 22 jts of 2-7/8'' tubing was full of fine sand,  Was able to clean out 21 jts of 2-7/8'' tubing, Lay down 1 jts of 2-7/8'' tubing plugged up, Recover 21 cu.ft of fine sand )  Discuss with E&B rep, Make up 2-7/8'' mule shoe, Run in hole with 78 jts of 2-7/8'' eue 8rd tubing & tag well @ 2578', T.O.L @ 3317', 739' of fill to clean out, Make up king swivel & established circulation, Circulated fill out from 2578' to 2666', Circulated hole clean 1 hole volumes ( 162 bbls ) Rig out king swivel, Pull out hole with 14 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2203', Close in & secure well overnight, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19eba89fcdb4bd8c"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 5,
+      "date": "2026-06-12",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 5 )",
+      "phase": "Wellbore cleanout — washing out sand fill; lost circulation, recovered fine sand",
+      "job_complete": false,
+      "summary": "The crew kept cleaning sand and debris out of the well after the previous day's fishing job. They ran clean-out tubing back in and tapped the top of the fill at 2,666 ft, then pumped fluid down the pipe to wash the fill upward and out of the hole. As they worked from 2,666 to 2,732 ft the well \"lost circulation\" — about 100 barrels of fluid leaked off into the formation instead of returning to surface — so they mixed a thicker \"viscosity pill\" (a high-viscosity slug of mud) to plug the loss zone and got circulation going again, with the fluid standing 985 ft down the hole. They cleaned out fill down to 2,996 ft but the well plugged off again; after conferring with the E&B company representative they pulled the clean-out string out of the hole, recovering about 6 cubic feet of fine sand on the bottom-hole tool. The well was closed in and secured for the night and the crew returned to the Bakersfield yard. This is continued cleanout work — no cement plugs have been set and the well is not yet plugged and abandoned.",
+      "full_text": "Held safety meeting with crew & filled out JSA, Open well & monitor atmosphere for H2S & other hazardous gases none present, Run in hole with 67 jts of 2-7/8'' eue 8rd tubing & tag well @ 2666', Make up king swivel & established circulation, Circulated fill out from 2666' to 2732' & lost circulation ( 100 bbls ) Make a 45 viscosity pill, Established circulation ( Fluid Level @ 985' ) Clean out fill from 2732' to 2996' & got plugged up, Discuss with E&B rep, Rig out king swivel, Pull out hole with 90 jts of 2-7/8'' eue 8rd tubing & 2-7/8'' mule shoe ( Note: Recover 6 cu.ft of fine sand ) Close in & secure well overnight, Travel to Bakersfield yard, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19ebfa7c12f9c936"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 6,
+      "date": "2026-06-15",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 6 )",
+      "phase": "Wellbore cleanout — sand fill returned over weekend; recovered fine sand via vacuum truck",
+      "job_complete": false,
+      "summary": "After the weekend break, the crew returned to find that sand had kept sloughing back into the well: they ran 86 joints of tubing back in and tapped the top of the fill at 2,844 ft, meaning roughly 152 ft of new sand had settled in over the two days off. After conferring with the E&B company representative, they pulled the string partway out and repositioned the open end of the tubing (the \"tubing tail\") at 2,203 ft, then closed in and secured the well. They brought in a TMG vacuum truck to clean out the mud pump and surface equipment, recovering 66 barrels (about 370 cubic feet) of the fine sand that has been the recurring obstacle on this well. The job is still in the wellbore-cleanout phase, with the well refilling with fine sand faster than it can be permanently cleared.",
+      "full_text": "Travel to Huntington Beach Lease, Held safety meeting with crew & filled out JSA, Services rig & equipment, Run in hole with 86 jts of 2-7/8'' eue 8rd tubing & tag well @ 2844', 152' of fill came over weekend, Discuss with E&B rep, Pull out hole with 20 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2203', Close in & secure well, Waited on TMG vacuum truck, Rig up vacuum truck & clean up mud pump ( Note: Recover 66 Bbls / 370.5 cu.ft of fine sand ) Discuss with E&B rep, End of shift."
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 7,
+      "date": "2026-06-16",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 7 )",
+      "phase": "Wellbore cleanout — washing sand fill; severe lost circulation (320 bbls), pulled out of hole",
+      "job_complete": false,
+      "summary": "The crew continued trying to clean sand fill out of the well. They ran tubing back in and tapped the top of the fill at 2,844 ft, then pumped fluid down to wash the fill upward and out of the hole. As they cleaned out from 2,844 to 2,930 ft and again from 2,930 to 3,028 ft, the well repeatedly \"lost circulation\" — the pumped fluid leaked off into the formation instead of returning to surface, about 120 barrels each time and 320 barrels lost for the day. The crew mixed thicker \"viscosity pills\" (high-viscosity mud slugs) to try to seal off the loss zone, but could not re-establish circulation. After conferring with the E&B company representative, they pulled the entire tubing string — 91 joints plus the mule-shoe bottom tool — back out of the hole and secured the well overnight. This is still wellbore-cleanout work; no cement plugs have been set and the well is not yet plugged and abandoned.",
+      "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Run in hole with 20 jts of 2-7/8'' eue 8rd tubing & tag well @ 2844', Fill mud pump & make a 45 viscosity pill, Make up king swivel & established circulation, Circulate fill out from 2844' to 2930' & lost circulation ( 120 bbls ) Make a 45 viscosity pill, Established circulation, Circulated fill out from 2930' to 3028' & lost circulation ( 120 bbls ) Make a 45 viscosity pill, Attempt to established circulation with no success ( Note: Lost a total of 320 bbls ) Discuss with E&B rep, Decision was made to pull out hole with tubing string, Pull out hole with 91 jts of 2-7/8'' eue 8rd tubing & 2-7/8'' mule shoe, Close in & secure well overnight, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19ed3bc4c3d0e33e"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 8,
+      "date": "2026-06-17",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 8 )",
+      "phase": "Wellbore cleanout — tubing-bailer runs recovered 32 cu.ft fine sand; casing began flowing a small stream",
+      "job_complete": false,
+      "summary": "The crew switched tactics to attack the recurring sand problem, bringing in a \"tubing bailer\" — a hollow tool run on the end of the tubing that scoops up loose sand from the bottom of the hole and is then pulled to surface and emptied. They tapped the top of the sand fill at 3,005 ft and located the top of the casing liner at 3,317 ft, leaving 312 ft of sand to clean out. Over four bailing runs they slowly worked the fill down — 3,005 to 3,025 ft, 3,025 to 3,035 ft, 3,035 to 3,044 ft, and 3,040 to 3,042 ft — recovering fine sand each trip (8, 14, and 10 cubic feet on the first three runs, 32 cu.ft total for the day), but each run stalled because they could not make further hole. On the final run they noticed the casing began flowing a small stream of fluid at surface. After conferring with the E&B company representative, the crew closed in and secured the well overnight. This remains wellbore-cleanout work ahead of plugging; no cement plugs have been set and the well is not yet plugged and abandoned.",
+      "full_text": "Travel to Cavins Oil Well Tools at Signal Hill, Pick up 2-7/8'' tubing bailer, Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Make up 2-7/8'' flapper mule shoe, Run in hole with 10 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 80 jts of 2-7/8'' eue 8rd tubing & tag well @ 3005', T.O.L @ 3317', 312' of fill to clean out, Discuss with E&B rep, Tubing bail from 3005' to 3025', unable to make anymore hole, Pull out hole with 80 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 10 jts of 2-7/8'' eue 8rd tubing & 2-7/8'' flapper mule shoe ( Note: Recover 8 cu.ft of fine sand ) Make up 2-7/8'' flapper mule shoe, Run in hole with 14 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 76 jts of 2-7/8'' eue 8rd tubing & tag well @ 3025', Tubing bail from 3025' to 3035', unable to make anymore hole, Pull out hole with 76 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 14 jts of 2-7/8'' eue 8rd tubing & 2-7/8'' flapper mule shoe ( Note: Recover 14 cu.ft of fine sand ) Make up 2-7/8'' flapper mule shoe, Run in hole with 14 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 76 jts of 2-7/8'' eue 8rd tubing & tag well @ 3035', Tubing bail from 3035' to 3044', unable to make anymore hole, Pull out hole with 76 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 14 jts of 2-7/8'' eue 8rd tubing & 2-7/8'' flapper mule shoe ( Note: Recover 10 cu.ft of fine sand ) Make up 2-7/8'' flapper mule shoe, Run in hole with 14 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 76 jts of 2-7/8'' eue 8rd tubing & tag well @ 3040', Tubing bail from 3040' to 3042', unable to make anymore hole, Pull out hole with 76 jts of 2-7/8'' eue 8rd tubing, 2-7/8'' tubing bailer, 14 jts of 2-7/8'' eue 8rd tubing & 2-7/8'' flapper mule shoe ( Note: Notice casing started flowing small stream, Recover 0 cu.ft of fine sand ) Discuss with E&B rep ( Note: Recover a total of 32 cu.ft of fine sand ) Close in & secure well overnight, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19ed8fa63214ff67"
+    },
+    {
+      "well": "A-7I",
+      "well_display": "A-7i",
+      "day": 9,
+      "date": "2026-06-18",
+      "subject": "Daily Rig Report Angus # A-7i ( Day 9 )",
+      "phase": "Wellbore cleanout — 97 ft of sand sloughed back overnight; tubing stuck and worked free",
+      "job_complete": false,
+      "summary": "The sand problem persisted overnight. When the crew ran tubing back in, they found that 97 ft of sand had sloughed back into the hole, so they tagged fill at 2,947 ft — higher than where they left off. They mixed a thick fluid (a \"viscosity pill\") to help carry sand to surface, established circulation, and washed the fill down from 2,947 ft to 3,094 ft, but the tubing became stuck in the hole. The crew worked it free, losing 180 barrels of fluid into the formation while fine sand returned to surface, and noted the tubing dragged (\"pulling tight\") between 3,094 ft and 2,830 ft — a sign the hole remains unstable. They pulled back, set the tubing tail at 2,036 ft, and secured the well overnight. This is still wellbore-cleanout work ahead of plugging; no cement plugs have been set and the well is not yet plugged and abandoned.",
+      "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Make up 2-3/8'' saw tooth collar & pick up 1 jt of 2-3/8'' eue 8rd tubing, Run in hole with 88 jts of 2-7/8'' eue 8rd tubing & tag well @ 2947', 97' of fill came in overnight, Discuss with E&B rep, Make a 45 viscosity pill, Make up king swivel & established circulation, Circulate fill out from 2947' to 3094' & got stuck, Worked tubing free ( Note: Lost 180 bbls, Returns are fine sand ) Discuss with E&B rep, Pull out hole with 36 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2036' ( Note: Pulling tight 3094' to 2830' ) Discuss with E&B rep, Close in & secure well overnight, End of shift.",
+      "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19ede1d9269f48c3"
     }
   ]
 }

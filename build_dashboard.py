@@ -19,6 +19,14 @@ ppath = os.path.join(D, 'permits.json')
 if os.path.exists(ppath):
     permits = json.load(open(ppath))
 
+# Slack-sourced NOI approvals (from #angus_managers, posted by Luc). Authoritative
+# for "approved" status + permit link so an approval shows even when the workbook
+# is stale/unreadable. Keyed by well_norm -> {well_display, approved_date, permit, url, ...}.
+slack_appr = {}
+sapath = os.path.join(D, 'slack_approvals.json')
+if os.path.exists(sapath):
+    slack_appr = json.load(open(sapath)).get('approvals', {})
+
 # NOTE: the banner's "current rig well" is set AFTER reconciliation (below), from
 # the reconciled per-well rig status — NOT from a single globally-newest report.
 # A prior well's "Job Complete" and a new well's "Day 1" can share the same date;
@@ -64,6 +72,20 @@ for w in wells['wells']:
     if p:
         if not w.get('permit'): w['permit'] = p['permit']
         if not w.get('permit_url'): w['permit_url'] = p['url']
+
+    # Slack-sourced approval override (authoritative for "approved"). Lifts a well
+    # from pending -> approved/ready and fills the permit link when Luc posts it in
+    # #angus_managers. Rig/complete status from the reports (below) still wins.
+    a = slack_appr.get(w['well_norm'])
+    if a:
+        if not (w.get('noi_status') or '').strip().startswith('0'):
+            w['noi_status'] = '0. Approved'
+            w['noi_source'] = 'slack'
+            w['status'] = 'ready'
+            if not w.get('approved') and a.get('approved_date'):
+                w['approved'] = a['approved_date']
+        if not w.get('permit') and a.get('permit'): w['permit'] = a['permit']
+        if not w.get('permit_url') and a.get('url'): w['permit_url'] = a['url']
 
     # Execution state: reports override the workbook where they exist.
     sheet_start, sheet_end = w.get('ops_start'), w.get('ops_end')
@@ -161,7 +183,7 @@ header{background:#fff;border-bottom:3px solid var(--ns-blue)}
 .kpi .n{font-size:30px;font-weight:700;line-height:1.1}
 .kpi .l{font-size:12.5px;color:var(--gray);margin-top:3px}
 .kpi.k-total .n{color:var(--ink)} .kpi.k-done .n{color:var(--ok)} .kpi.k-rig .n{color:var(--rig)}
-.kpi.k-ready .n{color:var(--warn)} .kpi.k-pend .n{color:var(--pend)}
+.kpi.k-ready .n{color:var(--warn)} .kpi.k-pend .n{color:var(--pend)} .kpi.k-appr .n{color:var(--ns-blue)}
 .progress{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 18px;margin-bottom:22px}
 .pbar{height:14px;border-radius:7px;background:var(--pend-bg);overflow:hidden;display:flex;margin-top:8px}
 .pbar div{height:100%}
@@ -242,7 +264,7 @@ footer img{height:30px;opacity:.9}
   </div>
   <div class="tblwrap"><table id="tbl">
     <thead><tr>
-      <th>Status</th><th>Well</th><th>API</th><th>Permit</th><th>Type</th><th>NOI (Permit) Status</th><th>Approved</th>
+      <th>Status</th><th>Well</th><th>API</th><th>Permit</th><th>NOI (Permit) Status</th><th>Approved</th>
       <th>Fire Dept</th><th>Rig Start</th><th>Rig Finish</th><th>Rig Days</th>
     </tr></thead><tbody></tbody>
   </table></div>
@@ -329,8 +351,12 @@ if (active) {
 
 // KPIs
 const count = s => wells.filter(w=>w.status===s).length;
+// Total wells whose NOI permit is approved — includes abandoned, on-rig, and
+// ready wells (every approved well carries an "0. Approved" NOI status).
+const approvedTotal = wells.filter(w=>(w.noi_status||'').trim().startsWith('0')).length;
 const kp = [
   ['k-total', wells.length, 'Total wells'],
+  ['k-appr', approvedTotal, 'Permits approved (total)'],
   ['k-done', count('complete'), 'Plugged & abandoned'],
   ['k-rig', count('rig'), 'Rig on well now'],
   ['k-ready', count('ready'), 'Approved — awaiting rig'],
@@ -363,7 +389,6 @@ function render(filter, q){
     <td><b>${w.well}</b></td>
     <td>${w.api||''}</td>
     <td>${w.permit_url?`<a href="${w.permit_url}" target="_blank" rel="noopener" title="Open NOI Permit Acceptance Notice (Dropbox)">${w.permit}</a>`:(w.permit||'<span class="muted">&mdash;</span>')}</td>
-    <td>${w.type||''}</td>
     <td>${w.noi_status||''}${w.resubmitted?` <span class="muted">(${w.resubmitted.replace('Resubmitted: ','resub. ')})</span>`:''}</td>
     <td>${fmtDate(w.approved)||'<span class="muted">—</span>'}</td>
     <td>${fireCell(w.fire_permit)}</td>

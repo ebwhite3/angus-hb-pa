@@ -58,8 +58,79 @@ Re-entries are handled by resetting the day-count block whenever crew Day-N drop
 
 1. Search Gmail: `from:JMacias@ewscorp.net subject:"Daily Rig Report" newer_than:3d`; fetch any thread newer than `meta.last_email_date`.
 2. For each new report: write a plain-language summary (explain depths/plugs/CalGEM witnessing in lay terms; note "Job Complete"), append to `rig_reports.json` (newest data in `meta`: `last_email_date`, `last_email_id`, `current_rig_well` from subject line).
-3. Run `extract_wells.py` against the current workbook, then `build_dashboard.py`.
-4. Deploy `site/` to Cloudflare Pages (see below). Skip deploy if nothing changed.
+3. Ingest NOI approvals posted by Luc in Slack `#angus_managers` (see **Slack approvals** below) → `slack_approvals.json` (+ permit link into `permits.json`), and react ✅ to each ingested message.
+4. Run `extract_wells.py` against the canonical workbook (see **Source workbook** below), then `build_dashboard.py`.
+5. Deploy `site/` to Cloudflare Pages (see below). Skip deploy only if **nothing** changed — no new rig emails, **no new Slack approvals**, and the spreadsheet content is unchanged.
+
+### Source workbook (canonical — always read this)
+
+Per Eric (2026-06-15), the scheduled task must **always read the canonical file**:
+`C:\Users\Admin\Numeric Solutions Dropbox\Eric White\Angus Petroleum\Engineering\NOI Prep\P&A NOI Progress Report-v2.xlsx`
+(sandbox: `/sessions/<session>/mnt/NOI Prep/P&A NOI Progress Report-v2.xlsx`). **Do not** substitute a
+dated copy, a "conflicted copy," or the fallback copy that may sit in this `Angus Dashboard/` folder.
+
+This file is a Dropbox cloud-synced binary and the sandbox mount sometimes serves it **truncated**
+(valid header, but `openpyxl` raises `BadZipFile` / no end-of-central-directory `PK\x05\x06`). Before
+running `extract_wells.py`, **validate and retry**:
+
+1. Open the workbook with `zipfile.ZipFile(path)` (or check the file ends with `PK\x05\x06`).
+2. If it fails, the mount has a partial copy — `sleep 15` and re-check, up to ~4 times (a stale
+   read can take a minute to hydrate; a parallel `Read` of the file by the host helps trigger it).
+3. If it validates, run the pipeline normally.
+4. If it still fails after retries, **do not substitute another copy** and do not run `extract_wells.py`.
+   Instead **always rebuild from the last-good `wells.json`** already on disk (skip `extract` only) by
+   running `build_dashboard.py`, then apply the **normal sha1 skip-check** (step 4 of the daily refresh):
+   diff the freshly built `site/index.html` against the currently-published page and **deploy if they
+   differ**. This is critical — the rig reports and Slack approvals are merged at *build* time from their
+   own JSON files, so a truncated workbook must **never** block publishing rig-execution or approval
+   updates. It also self-heals the case where a prior run ingested a report or approval into JSON but
+   never deployed it (e.g. the workbook was truncated that day too): the sha1 will differ and this run
+   publishes the backlog. Note in the run output that the **permit pipeline was not refreshed from the
+   workbook** (well list, NOI statuses, approval dates reflect the last good extract) so Eric can force a
+   Dropbox re-sync. **True fail-safe (no deploy)** only when the page can't be built at all — no last-good
+   `wells.json` on disk, or `build_dashboard.py` errors — in which case leave the live site as-is and
+   report "dashboard unbuildable — refresh skipped." (A full re-sync, or a save to a new path, hydrates the file.)
+
+   > **Bug fixed 2026-06-17:** the old rule skipped the deploy entirely unless *new Slack approvals*
+   > arrived *that run*. A-7i Day 7 was ingested into `rig_reports.json` by an evening run that never
+   > deployed (its last deploy predated the email), then the next morning's run found the workbook
+   > truncated, saw no new approvals, and fail-safed — leaving the live page stuck on Day 6 with Day 7
+   > sitting unpublished in JSON. Fix: on a truncated workbook, always rebuild from last-good `wells.json`
+   > and let the sha1 skip-check decide; only a genuine build failure suppresses the deploy.
+
+## Slack approvals (#angus_managers)
+
+Luc Landry posts NOI approvals to Slack `#angus_managers` (channel `C092D4XT5QD`, Luc = `U019FH7PXDF`)
+as they come in, giving the **well, permit number, and a Dropbox link to the permit**. This is a second,
+workbook-independent path to capture approvals — **authoritative for "approved" status and the permit
+link** (Eric, 2026-06-15), so an approval shows on the dashboard even when the workbook read is lagging.
+
+Each run:
+
+1. Read `#angus_managers` for messages from Luc newer than `slack_approvals.json` → `meta.last_checked_ts`
+   (first run: scan the last ~7 days). Use `slack_read_channel` / `slack_search_public_and_private`
+   (`in:#angus_managers from:<@U019FH7PXDF>`).
+2. For each message that signals an approval, parse:
+   - **well** — token like `A-8i`, `B-11`, `B-16i`; normalize the same way as the pipeline
+     (`A-8 I`/`A-8i` → `A-8I`).
+   - **permit #** — the 7-digit number (e.g. `7056326`).
+   - **Dropbox URL** — the `https://www.dropbox.com/...` link.
+   A message is only actionable when it carries a well **and** (permit # or Dropbox link). If a message
+   is ambiguous or missing pieces, skip it (do not guess) and note it in the run output.
+3. Append to `slack_approvals.json` under `approvals` keyed by normalized well:
+   `{"well_display","approved_date" (Slack msg date, Pacific),"permit","url","source_ts","acked":true}`.
+   Also add/refresh the same well in `permits.json` (`{"permit","url"}`) so the permit column links even
+   on a workbook-only rebuild. Update `meta.last_checked_ts` to the newest message ts processed.
+4. React ✅ (`slack_add_reaction`, emoji `white_check_mark`) to each ingested message so the team sees it
+   was captured. Do not post chat replies. Adding a duplicate reaction is harmless (idempotent).
+5. `build_dashboard.py` reads `slack_approvals.json` and applies each approval as an override: a well not
+   already `0. Approved` is lifted to `0. Approved` / status `ready` (tagged `noi_source:"slack"`), with
+   `approved` date and permit link filled if missing. Rig reports still own `rig`/`complete` status, and a
+   later workbook `0. Approved` simply matches (no conflict). Approvals therefore feed the header
+   **"Permits approved (total)"** KPI automatically.
+
+Idempotency: a well already in `slack_approvals.json` (or already approved in the workbook) is a no-op —
+re-ingesting the same message changes nothing and the ✅ is already set.
 
 ## Deploy (Cloudflare Pages — direct upload)
 

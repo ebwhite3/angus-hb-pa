@@ -99,7 +99,10 @@ def main():
         entry = {
             'well': name_raw, 'well_norm': name,
             'api': api,
-            'type': str(val(r, C['type']) or '').strip(),
+            # Well type rule (per Eric): injector wells (normalized name ends in 'I')
+            # are Waterflood; all others are Oil & Gas. The workbook's well-type
+            # column is unreliable/absent, so type is derived from the name.
+            'type': 'Waterflood' if name.endswith('I') else 'Oil & Gas',
             'td': td_val if isinstance(td_val, (int, float)) else None,
             'permit': permit_val,
             'noi_status': noi,
