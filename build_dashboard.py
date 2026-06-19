@@ -27,6 +27,14 @@ sapath = os.path.join(D, 'slack_approvals.json')
 if os.path.exists(sapath):
     slack_appr = json.load(open(sapath)).get('approvals', {})
 
+# Per-well static context (zone tops, plug schedule, approved program, diagrams),
+# extracted from the CalGEM permit + abandonment program. Drives the active-well
+# context card. Keyed by well_norm; absent wells simply render no context card.
+well_ctx = {}
+wcpath = os.path.join(D, 'well_context.json')
+if os.path.exists(wcpath):
+    well_ctx = {k: v for k, v in json.load(open(wcpath)).items() if not k.startswith('_')}
+
 # NOTE: the banner's "current rig well" is set AFTER reconciliation (below), from
 # the reconciled per-well rig status — NOT from a single globally-newest report.
 # A prior well's "Job Complete" and a new well's "Day 1" can share the same date;
@@ -144,7 +152,7 @@ else:
 built_iso = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
 built = datetime.datetime.now().strftime('%B %-d, %Y %-I:%M %p') if os.name != 'nt' else datetime.datetime.now().strftime('%B %d, %Y %I:%M %p')  # fallback only
 
-payload = json.dumps({'wells': wells, 'reports': reports, 'built': built, 'built_iso': built_iso, 'flags': flags}, ensure_ascii=False)
+payload = json.dumps({'wells': wells, 'reports': reports, 'built': built, 'built_iso': built_iso, 'flags': flags, 'well_context': well_ctx}, ensure_ascii=False)
 payload = payload.replace('</', '<\\/')  # script-tag safety
 
 HTML = r"""<!DOCTYPE html>
@@ -178,6 +186,26 @@ header{background:#fff;border-bottom:3px solid var(--ns-blue)}
 .banner h2{margin:0 0 4px;font-size:17px}
 .banner p{margin:0;font-size:14px;opacity:.96}
 .banner .bdate{font-size:12px;opacity:.8;margin-top:6px}
+.banner .bnarr{margin-top:12px;padding-top:10px;border-top:1px solid rgba(255,255,255,.28)}
+.banner .bnarr-h{font-size:11px;text-transform:uppercase;letter-spacing:.5px;font-weight:700;opacity:.85;margin:8px 0 2px}
+.banner .bnarr-h:first-child{margin-top:0}
+.banner .bnarr p{font-size:13.5px;opacity:.97;margin:0}
+.wellctx{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px 18px;margin:0 0 14px}
+.wellctx h3{margin:0 0 2px;font-size:15.5px}
+.wellctx .wsub{color:var(--gray);font-size:12.5px;margin:0 0 12px}
+.wellctx .wgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.wellctx .wcol h4{margin:0 0 6px;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--gray)}
+.wellctx table.mini{border-collapse:collapse;width:100%;min-width:0;font-size:12.5px}
+.wellctx table.mini td{padding:3px 8px 3px 0;border:none;white-space:nowrap}
+.wellctx table.mini td.r{text-align:right;color:var(--gray);font-variant-numeric:tabular-nums}
+.wellctx .docbtns{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 0}
+.wellctx .docbtn{display:inline-block;border:1px solid var(--ns-blue);color:var(--ns-blue-dark);background:var(--ns-blue-light);border-radius:18px;padding:5px 14px;font-size:12.5px;font-weight:600;text-decoration:none}
+.wellctx .docbtn:hover{background:var(--ns-blue);color:#fff}
+.wellctx details{margin-top:12px}
+.wellctx ol.prog{margin:8px 0 0;padding-left:22px;font-size:12.5px;color:#42505e;line-height:1.5}
+.wellctx ol.prog li{margin:2px 0}
+.wellctx ol.prog li.cur{background:var(--ns-blue-light);font-weight:600;color:var(--ink);border-radius:4px;padding:1px 6px;margin-left:-6px}
+.wellctx .clab{font-size:11px;color:#9aa6b3;margin-top:10px}
 .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
 .kpi{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
 .kpi .n{font-size:30px;font-weight:700;line-height:1.1}
@@ -222,6 +250,23 @@ details{margin-top:8px}
 summary{cursor:pointer;font-size:12.5px;color:var(--ns-blue-dark);font-weight:600}
 .rfull{background:#f7fafc;border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-size:12.5px;color:#42505e;margin-top:8px;line-height:1.6;white-space:pre-wrap}
 .rsub{font-size:11.5px;color:#9aa6b3;margin-top:6px}
+.docscell{font-size:12.5px}
+.wellcard{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px}
+.wellcard.active{border-left:4px solid var(--ns-blue)}
+.wcard-top{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.wcard-well{font-weight:700;font-size:15.5px}
+.wcard-meta{margin-left:auto;font-size:12px;color:var(--gray)}
+.wcard-sum{margin:8px 0 10px;font-size:13.5px;color:#36424f}
+.wcard-days{display:flex;flex-direction:column;gap:6px}
+details.day{border:1px solid var(--line);border-radius:8px;padding:8px 12px;background:#fbfdff}
+details.day>summary{display:flex;gap:10px;align-items:center;cursor:pointer;font-size:13px;color:var(--ink);list-style:none}
+details.day>summary::-webkit-details-marker{display:none}
+details.day>summary::before{content:'\25b8';color:var(--ns-blue);font-size:11px}
+details.day[open]>summary::before{content:'\25be'}
+details.day .ddate{margin-left:auto;color:var(--gray);font-size:12px}
+details.day .dsum{margin:8px 0 4px;font-size:13.5px}
+details.ftext{margin-top:6px}
+details.ftext>summary{font-size:12px;color:var(--ns-blue-dark);font-weight:600;cursor:pointer}
 .note{font-size:12.5px;color:var(--gray);background:var(--ns-blue-light);border-radius:8px;padding:10px 14px;margin:8px 0 14px}
 .flags{background:var(--warn-bg);border:1px solid #f0c97a;border-radius:10px;padding:12px 16px;margin:20px 0 0}
 .flags b{color:var(--warn)}
@@ -245,6 +290,7 @@ footer img{height:30px;opacity:.9}
 
 <div class="wrap">
   <div id="banner"></div>
+  <div id="wellctx"></div>
   <div id="flags"></div>
   <div class="kpis" id="kpis"></div>
   <div class="progress">
@@ -265,7 +311,7 @@ footer img{height:30px;opacity:.9}
   <div class="tblwrap"><table id="tbl">
     <thead><tr>
       <th>Status</th><th>Well</th><th>API</th><th>Permit</th><th>NOI (Permit) Status</th><th>Approved</th>
-      <th>Fire Dept</th><th>Rig Start</th><th>Rig Finish</th><th>Rig Days</th>
+      <th>Fire Dept</th><th>Rig Start</th><th>Rig Finish</th><th>Rig Days</th><th>Docs</th>
     </tr></thead><tbody></tbody>
   </table></div>
 
@@ -334,10 +380,21 @@ const block = r => {
   return `<div style="margin-top:.6rem"><div style="font-weight:700;font-size:.95em;opacity:.95">${tag}</div><p style="margin:.15rem 0 0">${r.summary}</p></div>`;
 };
 const body = dayReps.map(block).join('');
+// Claude-authored narrative for the active well: a high-level roll-up of prior
+// days ("story so far") plus the grounded geology/permit/program placement.
+const WN = DATA.reports.well_narrative || {};
+function narrFor(wnorm){
+  const n = WN[wnorm]; if(!n) return '';
+  const parts = [];
+  if(n.story_so_far) parts.push(`<div class="bnarr-h">Story so far</div><p>${n.story_so_far}</p>`);
+  if(n.plan_context) parts.push(`<div class="bnarr-h">Where this stands against the plan</div><p>${n.plan_context}</p>`);
+  return parts.length ? `<div class="bnarr">${parts.join('')}</div>` : '';
+}
 if (active) {
   bn.innerHTML = `<div class="banner"><div class="pulse"></div><div>
     <h2>Rig is currently on well ${active.well_display} — Day ${active.day} (${active.phase})</h2>
     ${body}
+    ${narrFor(active.well)}
     <div class="bdate">Latest field report: ${fmtDate(latestDate)}${multi?` &middot; ${dayReps.length} updates`:` &middot; ${dayReps[0].subject}`}</div>
   </div></div>`;
 } else if (dayReps.length) {
@@ -348,6 +405,56 @@ if (active) {
     <div class="bdate">Latest field report: ${fmtDate(latestDate)}</div>
   </div></div>`;
 }
+
+// Active-well context card: zone tops, key regulatory depths, cement plug
+// schedule, the approved program (embedded as text), and links to the hosted
+// wellbore diagrams. Renders only when the active rig well has a well_context entry.
+(function renderWellCtx(){
+  const el = document.getElementById('wellctx');
+  if(!el) return;
+  const wnorm = meta.current_rig_well;
+  const c = (DATA.well_context||{})[wnorm];
+  if(!c){ el.innerHTML=''; return; }
+  const num = n => (n==null?'':Number(n).toLocaleString('en-US'));
+  const sub = [];
+  if(c.permit && c.permit.no) sub.push(`Permit #${c.permit.no}`);
+  if(c.permit && c.permit.approved_date) sub.push(`approved ${fmtDate(c.permit.approved_date)}`);
+  if(c.permit && c.permit.critical_well) sub.push('critical well');
+  if(c.program && c.program.rev) sub.push(`program ${c.program.rev}`);
+
+  const tops = (c.zone_tops||[]).map(z=>`<tr><td>${z.name}</td><td class="r">${num(z.depth_ft)} ft</td></tr>`).join('');
+  const keyd = [
+    ['Base of freshwater (BFW)', c.bfw_ft],
+    ['Base of USDW', c.usdw_base_ft],
+    ['Top perforation (MD)', c.top_perf&&c.top_perf.md_ft],
+    ['Cleanout / TD target', c.td_ft],
+  ].filter(x=>x[1]!=null).map(x=>`<tr><td>${x[0]}</td><td class="r">${num(x[1])} ft</td></tr>`).join('');
+  const plugs = (c.plugs||[]).map(p=>{
+    const top = p.top_ft===0 ? 'surface' : num(p.top_ft)+' ft';
+    return `<tr><td>Plug #${p.n}</td><td class="r">${num(p.bottom_ft)} ft \u2013 ${top}</td><td class="r">${p.cement_cuft} cu ft</td></tr>`;
+  }).join('');
+
+  const docs = [];
+  if(c.docs && c.docs.proposed_diagram) docs.push(`<a class="docbtn" href="${c.docs.proposed_diagram}" target="_blank" rel="noopener">\u25b8 ${c.docs.proposed_diagram_label||'Proposed P&A diagram'}</a>`);
+  if(c.docs && c.docs.current_diagram) docs.push(`<a class="docbtn" href="${c.docs.current_diagram}" target="_blank" rel="noopener">\u25b8 ${c.docs.current_diagram_label||'Current wellbore configuration'}</a>`);
+
+  const step = (WN[wnorm]||{}).program_step || 0;
+  const prog = (c.program&&c.program.steps||[]).map((s,i)=>`<li class="${i+1===step?'cur':''}">${s}</li>`).join('');
+
+  el.innerHTML = `<div class="wellctx">
+    <h3>Active well \u2014 ${c.well_display}: program, plugs &amp; documents</h3>
+    <p class="wsub">${sub.join(' &middot; ')}</p>
+    ${docs.length?`<div class="docbtns">${docs.join('')}</div>`:''}
+    <div class="wgrid" style="margin-top:14px">
+      <div class="wcol"><h4>Geologic tops</h4><table class="mini"><tbody>${tops}</tbody></table></div>
+      <div class="wcol"><h4>Key depths</h4><table class="mini"><tbody>${keyd}</tbody></table></div>
+      <div class="wcol"><h4>Cement plug schedule (${c.program?c.program.rev:''})</h4><table class="mini"><tbody>${plugs}</tbody></table></div>
+    </div>
+    ${prog?`<details><summary>Approved abandonment program (${c.program.rev}) \u2014 ${c.program.steps.length} steps${step?` \u00b7 currently on step ${step}`:''}</summary>
+      <ol class="prog">${prog}</ol></details>`:''}
+    <div class="clab">Source: CalGEM NOI Permit Acceptance Notice${c.permit&&c.permit.no?` (#${c.permit.no})`:''} and approved Abandonment Program${c.program?` ${c.program.rev}`:''}. Depths referenced to KB.</div>
+  </div>`;
+})();
 
 // KPIs
 const count = s => wells.filter(w=>w.status===s).length;
@@ -377,6 +484,14 @@ function fireCell(f){
   const c = /submit/i.test(f) ? 'fire-ok' : 'fire-prog';
   return `<span class="${c}">${f}</span>`;
 }
+function docsCell(w){
+  const c=(DATA.well_context||{})[w.well_norm]; const d=c&&c.docs;
+  const L=[];
+  if(d&&d.proposed_diagram) L.push(`<a href="${d.proposed_diagram}" target="_blank" rel="noopener" title="Proposed P&A diagram">P&A</a>`);
+  if(d&&d.current_diagram) L.push(`<a href="${d.current_diagram}" target="_blank" rel="noopener" title="Current wellbore configuration">Current</a>`);
+  if(d&&d.program) L.push(`<a href="${d.program}" target="_blank" rel="noopener" title="Abandonment program">Program</a>`);
+  return L.length ? L.join(' <span class="muted">·</span> ') : '<span class="muted">—</span>';
+}
 const tb = document.querySelector('#tbl tbody');
 function render(filter, q){
   const rows = wells.slice().sort((a,b)=> ORDER[a.status]-ORDER[b.status] || a.well.localeCompare(b.well,undefined,{numeric:true}));
@@ -389,12 +504,13 @@ function render(filter, q){
     <td><b>${w.well}</b></td>
     <td>${w.api||''}</td>
     <td>${w.permit_url?`<a href="${w.permit_url}" target="_blank" rel="noopener" title="Open NOI Permit Acceptance Notice (Dropbox)">${w.permit}</a>`:(w.permit||'<span class="muted">&mdash;</span>')}</td>
-    <td>${w.noi_status||''}${w.resubmitted?` <span class="muted">(${w.resubmitted.replace('Resubmitted: ','resub. ')})</span>`:''}</td>
+    <td>${(w.noi_status||'').replace(/^\d+\.\s*/,'')}</td>
     <td>${fmtDate(w.approved)||'<span class="muted">—</span>'}</td>
     <td>${fireCell(w.fire_permit)}</td>
     <td>${fmtDate(w.ops_start)||'<span class="muted">—</span>'}</td>
     <td>${fmtDate(w.ops_end)||'<span class="muted">—</span>'}</td>
     <td>${w.rig_days??'<span class="muted">—</span>'}</td>
+    <td class="docscell">${docsCell(w)}</td>
   </tr>`).join('');
 }
 let curF='all', curQ='';
@@ -407,27 +523,51 @@ document.getElementById('filters').addEventListener('click', e=>{
 });
 document.getElementById('q').addEventListener('input', e=>{ curQ=e.target.value.toLowerCase(); render(curF, curQ); });
 
-// Reports
-const repWells = [...new Set(reports.map(r=>r.well_display))];
+// Reports — one card per well: an overall summary, then expandable day subcards.
+const repNorms = [...new Set(reports.map(r=>r.well))];
+const normMeta = {}; wells.forEach(w=> normMeta[w.well_norm]=w);
+function wellDisplay(n){ const r=reports.find(x=>x.well===n); return (normMeta[n]&&normMeta[n].well)||(r&&r.well_display)||n; }
 const sel = document.getElementById('repwell');
-sel.innerHTML = `<option value="all">All wells (${reports.length} reports)</option>` + repWells.map(w=>`<option value="${w}">${w}</option>`).join('');
+sel.innerHTML = `<option value="all">All wells (${reports.length} reports)</option>` + repNorms.map(n=>`<option value="${n}">${wellDisplay(n)}</option>`).join('');
+function overallSummary(n){
+  const wn=(DATA.reports.well_narrative||{})[n];
+  if(wn && wn.story_so_far) return wn.story_so_far;
+  const w=normMeta[n]; const rs=reports.filter(r=>r.well===n);
+  const dts=rs.map(r=>r.date).sort(); const maxd=Math.max(...rs.map(r=>r.day));
+  const last=rs.slice().sort((a,b)=> b.date.localeCompare(a.date)||b.day-a.day)[0];
+  if(w && w.status==='complete') return `Plugged &amp; abandoned — ${w.rig_days??maxd} rig-days on site (${fmtDate(w.ops_start)||fmtDate(dts[0])} to ${fmtDate(w.ops_end)||fmtDate(dts[dts.length-1])}). Latest field note: ${last?last.summary:''}`;
+  if(w && w.status==='rig') return `On the rig — Day ${maxd} (${last?last.phase:''}). ${last?last.summary:''}`;
+  return last? last.summary : '';
+}
 function renderReports(){
-  const f = sel.value;
-  const list = reports.slice().sort((a,b)=> b.date.localeCompare(a.date) || b.day-a.day)
-    .filter(r=> f==='all' || r.well_display===f);
-  document.getElementById('reports').innerHTML = list.map(r=>`
-   <div class="rep ${(!r.job_complete && meta.current_rig_well && r.well===meta.current_rig_well)?'current':''}">
-    <div class="rtop">
-      <span class="rwell">${r.well_display} — Day ${r.day}</span>
-      <span class="rphase ${r.job_complete?'done':''}">${r.phase}</span>
-      <span class="rdate">${fmtDate(r.date)}</span>
-    </div>
-    <div class="rsum">${r.summary}</div>
-    <details><summary>Full report text (verbatim from field)</summary>
-      <div class="rfull">${r.full_text}</div>
-      <div class="rsub">Source email: &ldquo;${r.subject}&rdquo; — Jorge Macias, EWS Corp</div>
-    </details>
-   </div>`).join('');
+  const f=sel.value;
+  let norms = repNorms.slice().filter(n=> f==='all' || n===f);
+  const lastDate = n => reports.filter(r=>r.well===n).reduce((m,r)=> r.date>m?r.date:m,'');
+  norms.sort((a,b)=>{
+    if(a===meta.current_rig_well) return -1; if(b===meta.current_rig_well) return 1;
+    return lastDate(b).localeCompare(lastDate(a));
+  });
+  document.getElementById('reports').innerHTML = norms.map(n=>{
+    const rs=reports.filter(r=>r.well===n).sort((a,b)=> b.date.localeCompare(a.date)||b.day-a.day);
+    const w=normMeta[n]; const isActive=(n===meta.current_rig_well);
+    const dd=rs.map(r=>r.day); const dmin=Math.min(...dd), dmax=Math.max(...dd); const st=w?w.status:'';
+    const badge = st?`<span class="badge ${BCLS[st]}">${LABEL[st]}</span>`:'';
+    const subcards = rs.map(r=>`
+      <details class="day"${isActive&&r.day===dmax?' open':''}>
+        <summary><b>Day ${r.day}</b> <span class="rphase ${r.job_complete?'done':''}">${r.phase}</span> <span class="ddate">${fmtDate(r.date)}</span></summary>
+        <div class="dsum">${r.summary}</div>
+        <details class="ftext"><summary>Full report text (verbatim from field)</summary>
+          <div class="rfull">${r.full_text}</div>
+          <div class="rsub">Source email: &ldquo;${r.subject}&rdquo; — Jorge Macias, EWS Corp</div>
+        </details>
+      </details>`).join('');
+    return `<div class="wellcard ${isActive?'active':''}">
+      <div class="wcard-top"><span class="wcard-well">${wellDisplay(n)}</span>${badge}
+        <span class="wcard-meta">Days ${dmin}\u2013${dmax} \u00b7 ${rs.length} report${rs.length>1?'s':''}</span></div>
+      <div class="wcard-sum">${overallSummary(n)}</div>
+      <div class="wcard-days">${subcards}</div>
+    </div>`;
+  }).join('');
 }
 renderReports();
 sel.addEventListener('change', renderReports);

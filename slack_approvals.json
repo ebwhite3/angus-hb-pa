@@ -4,7 +4,7 @@
     "channel_id": "C092D4XT5QD",
     "source_user": "Luc Landry",
     "source_user_id": "U019FH7PXDF",
-    "last_checked_ts": "1781811402.951409",
+    "last_checked_ts": "1781889052.654509",
     "note": "Slack-sourced NOI approvals from #angus_managers (posted by Luc: well + permit # + Dropbox link). Authoritative for 'approved' status and permit link; merged into the dashboard by build_dashboard.py. Each entry: well_norm -> {well_display, approved_date, permit, url, source_ts, acked}. The scheduled task appends here and reacts to Luc's message."
   },
   "approvals": {
@@ -15,7 +15,25 @@
       "url": "https://www.dropbox.com/scl/fi/25xsxmdohzj66n8c3k2qk/Angus-B-8i-API-0405921485_NOI-Permit-Acceptance-Notice.pdf?rlkey=knyfb7q1ckcwa08kny6diegzi&st=7fgi22pc&dl=0",
       "source_ts": "1781554302.845709",
       "acked": true,
-      "note": "Approved 6/15/2026 (Luc: 'We got B-8 today'); permit/link from permits.json. Recorded per Eric 2026-06-16 \u2014 workbook lagged showing it under review. Approved cannot revert to pending."
+      "note": "Approved 6/15/2026 (Luc: 'We got B-8 today'); permit/link from permits.json. Recorded per Eric 2026-06-16 — workbook lagged showing it under review. Approved cannot revert to pending."
+    },
+    "A-3I": {
+      "well_display": "A-3i",
+      "approved_date": "2026-06-18",
+      "permit": "7056349",
+      "url": "permits/A-3I_NOI_Permit_Acceptance_7056349.pdf",
+      "source_ts": "1781887993.007679",
+      "acked": true,
+      "note": "Approved 6/18/2026 (CalGEM letter date); Luc posted 'Two more approvals — B-10 and A-3' 2026-06-19. Permit #/PDF located in NOI Approval Letters; PDF hosted on Cloudflare."
+    },
+    "B-10": {
+      "well_display": "B-10",
+      "approved_date": "2026-06-18",
+      "permit": "7056350",
+      "url": "permits/B-10_NOI_Permit_Acceptance_7056350.pdf",
+      "source_ts": "1781887993.007679",
+      "acked": true,
+      "note": "Approved 6/18/2026 (CalGEM letter date); Luc posted 'Two more approvals — B-10 and A-3' 2026-06-19. Permit #/PDF located in NOI Approval Letters; PDF hosted on Cloudflare."
     }
   }
 }

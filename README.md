@@ -132,37 +132,34 @@ Each run:
 Idempotency: a well already in `slack_approvals.json` (or already approved in the workbook) is a no-op —
 re-ingesting the same message changes nothing and the ✅ is already set.
 
-## Deploy (Cloudflare Pages — direct upload)
+## Well context, narrative & documents
 
-**Live URL: https://angus-hb-pa.pages.dev** — moved from Netlify on 2026-06-06 to stop per-deploy
-credit charges. Cloudflare Pages direct upload is free with unlimited bandwidth; each dashboard is its
-own Pages project and the shared `00_Resources/.cloudflare.json` (`token`, `account_id`) covers all of them.
+Three additions layer geologic/permit/program context onto the rig data:
 
-```bash
-cd "Angus Dashboard"
-export CLOUDFLARE_API_TOKEN=$(python3 -c "import json;print(json.load(open('.../00_Resources/.cloudflare.json'))['token'])")
-export CLOUDFLARE_ACCOUNT_ID=$(python3 -c "import json;print(json.load(open('.../00_Resources/.cloudflare.json'))['account_id'])")
-npx --yes wrangler@4 pages deploy site --project-name=angus-hb-pa --branch=production --commit-dirty=true
-# Verify
-curl -sI "https://angus-hb-pa.pages.dev/" | grep -i content-type   # must be text/html
-```
+- **`well_context.json`** — per-well static context keyed by `well_norm`, extracted from the
+  CalGEM NOI Permit Acceptance Notice + the approved Abandonment Program. A *full* entry (e.g.
+  `A-7I`) carries zone tops, BFW/USDW, TD, top perf, assumed BHP, the cement-plug schedule, the
+  numbered program steps, permit metadata, and a `docs` block. A *docs-only* entry carries just
+  `{well_display, api, docs, program_text}`. `build_dashboard.py` loads it and (a) renders the
+  **active-well context card** below the banner (zone tops, key depths, plug schedule, embedded
+  program, diagram/permit links) for the current rig well, and (b) populates the **Docs column**
+  in the Master Well List for every well that has an entry. Missing wells degrade gracefully
+  (no card / em-dash in Docs). Refresh a well's entry only when its permit or program revision
+  changes.
 
-Direct upload pushes the prebuilt `site/` folder — no Netlify/Cloudflare CI build runs, so it doesn't
-count against build quotas. `npx` re-downloads Wrangler each run (fresh sandbox); that's expected.
+- **`rig_reports.json` → `well_narrative[<well_norm>]`** — Claude-authored, refreshed each run for
+  the active well: `story_so_far` (high-level roll-up of all days — e.g. "fighting recurring sand
+  for N days"), `plan_context` (latest reported depth placed against the well's zone tops / program
+  step / next milestone — deterministic depth math, sanity-checked), and `program_step`. The banner
+  renders these under the day's summary. **Resilience when the rig moves:** the banner, context
+  card, and Docs all key off the reconciled `current_rig_well`, so they follow the rig automatically;
+  the daily task regenerates `well_narrative` for the new well (extracting a `well_context` entry
+  first if one doesn't exist).
 
-**To revert to Netlify:** see `REVERT-TO-NETLIFY.md`. The Netlify site, `.netlify.json`, and the
-file-digest recipe are left intact, so reverting is just swapping this deploy step back.
-
-## Notes
-
-- Well name normalization: `A-8 I` (xlsx) ≡ `A-8i` (emails) → `A-8I` internally. Reports key the
-  normalized name as `well`; `wells.json` uses `well_norm`.
-- `Rig Days` from the workbook is **no longer used** — rig days now come from the crew Day-N count in the
-  reports (sidesteps the negative-value formula artifacts entirely).
-- **API leading zero:** both `extract_wells.py` and `build_dashboard.py` zero-pad the 10-digit API
-  (`zfill(10)`), so a value stored as a number (`405921419`) is restored to `0405921419`. Excel's
-  `0000000000` display format hides the dropped zero, but openpyxl reads the raw number — the zfill makes that moot.
-- Status derivation (see Source of truth): reports → `complete` / `rig`; workbook NOI `0. Approved` →
-  `ready`; else `pending`.
-- Spreadsheet has duplicate variants (conflicted copies, dated copies). **Source of truth: `P&A NOI Progress Report-v2.xlsx`** per Eric, 2026-06-05.
-- Eric will add more tracked items later (e.g., fire department signoff is already a column; future: site restoration, etc.).
+- **Hosted documents** — per-well wellbore diagrams (`site/diagrams/<NORM>_current.pdf`,
+  `<NORM>_proposed.pdf`), abandonment programs (`site/programs/<NORM>_program.pdf`), and
+  Slack-approved permits (`site/permits/<NORM>_NOI_Permit_Acceptance_<permit>.pdf`) are hosted on
+  Cloudflare alongside the page and linked from the table (Docs column) and the context card.
+  Because these live in `site/`, **the deploy must upload the whole `site/` tree, not just
+  index.html** (see Deploy). Source files for the latest revisions live in the per-well
+  `NOI Prep/<well> NOI ...` folders; the as-subm

@@ -4,3 +4,18 @@ __pycache__/
 .DS_Store
 Thumbs.db
 .wrangler/
+
+# Local copy of the source workbook (canonical lives in NOI Prep; do not commit)
+P&A NOI Progress Report-v2.xlsx
+CalGEM Submittals/
+
+# Transient build/test artifacts
+_build_full_tmp.py
+_bashwrite_test.txt
+*.tmp.*
+checkpoint-*.bundle
+
+# Hosted binary assets (regenerated/staged into site/, served from Cloudflare)
+site/diagrams/
+site/programs/
+site/permits/
