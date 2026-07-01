@@ -4,7 +4,7 @@
     "channel_id": "C092D4XT5QD",
     "source_user": "Luc Landry",
     "source_user_id": "U019FH7PXDF",
-    "last_checked_ts": "1781889052.654509",
+    "last_checked_ts": "1782155653.859129",
     "note": "Slack-sourced NOI approvals from #angus_managers (posted by Luc: well + permit # + Dropbox link). Authoritative for 'approved' status and permit link; merged into the dashboard by build_dashboard.py. Each entry: well_norm -> {well_display, approved_date, permit, url, source_ts, acked}. The scheduled task appends here and reacts to Luc's message."
   },
   "approvals": {

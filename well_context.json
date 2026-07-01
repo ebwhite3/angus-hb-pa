@@ -1,517 +1,647 @@
 {
-  "_meta": {
-    "description": "Per-well static context extracted from the CalGEM NOI Permit Acceptance Notice and the approved Abandonment Program. Feeds the dashboard's active-well context card (zone tops, plug schedule, program, diagrams). Refresh a well's entry only when its permit or program revision changes; the daily task flags if a newer program/permit revision appears on disk than 'source.captured_*' below.",
-    "keying": "Keyed by well_norm (e.g. 'A-7I'), same normalization as the pipeline."
+ "_meta": {
+  "description": "Per-well static context extracted from the CalGEM NOI Permit Acceptance Notice and the approved Abandonment Program. Feeds the dashboard's active-well context card (zone tops, plug schedule, program, diagrams). Refresh a well's entry only when its permit or program revision changes; the daily task flags if a newer program/permit revision appears on disk than 'source.captured_*' below.",
+  "keying": "Keyed by well_norm (e.g. 'A-7I'), same normalization as the pipeline.",
+  "rig_assignments_note": "Rig numbers per Eric 2026-06-30 (from the .xlsm accompanying each Daily Rig Report): Rig No. 27 on A-7i, Rig No. 5 on B-11i. Two rigs running concurrently."
+ },
+ "A-7I": {
+  "well_display": "A-7i",
+  "api": "0405921474",
+  "permit": {
+   "no": "7056159",
+   "approved_date": "2026-05-29",
+   "noi_received": "2026-04-27",
+   "critical_well": true,
+   "bond": "700772",
+   "field": "Huntington Beach",
+   "engineers": [
+    "Ashton Rodpotong (Associate)",
+    "Tamara Lopez (Senior)"
+   ]
   },
-  "A-7I": {
-    "well_display": "A-7i",
-    "api": "0405921474",
-    "permit": {
-      "no": "7056159",
-      "approved_date": "2026-05-29",
-      "noi_received": "2026-04-27",
-      "critical_well": true,
-      "bond": "700772",
-      "field": "Huntington Beach",
-      "engineers": [
-        "Ashton Rodpotong (Associate)",
-        "Tamara Lopez (Senior)"
-      ]
-    },
-    "datum_note": "All depths referenced to Kelly Bushing, 20 ft above ground; ground elevation 37 ft above sea level.",
-    "bhp_assumed_psi": 1293,
-    "top_perf": {
-      "md_ft": 3443,
-      "tvd_ft": 3007
-    },
-    "bfw_ft": 1494,
-    "usdw_base_ft": 1602,
-    "td_ft": 3793,
-    "td_note": "Cleanout / total-depth target for the program; first cement plug is set off bottom here.",
-    "zone_tops": [
-      {
-        "name": "Upper Bolsa",
-        "depth_ft": 2556,
-        "note": "Uppermost hydrocarbon zone (UHZ)"
-      },
-      {
-        "name": "Middle Bolsa",
-        "depth_ft": 2880
-      },
-      {
-        "name": "Lower Bolsa",
-        "depth_ft": 3017
-      },
-      {
-        "name": "Ashton",
-        "depth_ft": 3197
-      }
-    ],
-    "plugs": [
-      {
-        "n": 1,
-        "top_ft": 3097,
-        "bottom_ft": 3793,
-        "cement_cuft": 170,
-        "cement": "Class G",
-        "note": "Sets off TD up to 100 ft above the top of the Ashton; isolates the Bolsa hydrocarbon zones."
-      },
-      {
-        "n": 2,
-        "top_ft": 2456,
-        "bottom_ft": 3097,
-        "cement_cuft": 220,
-        "cement": "Class G",
-        "note": "Tops out 100 ft above the Upper Bolsa (UHZ)."
-      },
-      {
-        "n": 3,
-        "top_ft": 1394,
-        "bottom_ft": 1603,
-        "cement_cuft": 72,
-        "cement": "Class G",
-        "note": "Balanced plug from below the base of USDW (1,602 ft) to 100 ft above the base of freshwater (1,494 ft)."
-      },
-      {
-        "n": 4,
-        "top_ft": 0,
-        "bottom_ft": 120,
-        "cement_cuft": 42,
-        "cement": "Class G",
-        "note": "Surface plug, cement to surface."
-      }
-    ],
-    "abandonment_mud": [
-      {
-        "from_ft": 1603,
-        "to_ft": 2456,
-        "cuft": 292,
-        "density_lb_cuft": 72
-      },
-      {
-        "from_ft": 120,
-        "to_ft": 1394,
-        "cuft": 436,
-        "density_lb_cuft": 72
-      }
-    ],
-    "program": {
-      "rev": "rev3.0",
-      "title": "Abandonment Program (rev3.0)",
-      "steps": [
-        "MIRU service rig and associated equipment.",
-        "NU Class II 2M BOPE c/w Class A monitoring system on 8-5/8\" casing. Call for CalGEM inspection. (Assumed BHP ~1,293 psi; normally pressured at 0.43 psi/ft — top perf 3,443 ft MD = 3,007 ft TVD.)",
-        "RIH tubing open-ended and attempt to reach TD at 3,793 ft.",
-        "POOH.",
-        "MIRU wireline and run CBL from 3,200 ft – 1,300 ft. Confirm ETOC with CalGEM.",
-        "Call CalGEM to witness placing of cement.",
-        "RIH open-ended tubing.",
-        "Pump cement plug #1 from 3,793 ft – 3,097 ft (100 ft above top Ashton). ~170 cu ft Class G cement.",
-        "WOC – tag plug at 3,097 ft (call CalGEM to witness).",
-        "Pump cement plug #2 from 3,097 ft – 2,456 ft (100 ft above top UHZ). ~220 cu ft Class G cement.",
-        "WOC – tag plug at 2,456 ft (call CalGEM to witness).",
-        "Call CalGEM to witness placement of 72 lb/cu ft abandonment mud from 2,456 ft – 1,603 ft (292 cu ft).",
-        "RIH open-ended tubing to 1,603 ft.",
-        "Set balanced plug #3 from 1,603 ft – 1,394 ft (below base of USDW to 100 ft above BFW). ~72 cu ft Class G cement.",
-        "Tag TOC at 1,394 ft or higher (call CalGEM to witness).",
-        "Call CalGEM to witness placement of 72 lb/cu ft abandonment mud from 1,394 ft – 120 ft (436 cu ft).",
-        "Set balanced plug #4 at 120 ft, cement to surface. ~42 cu ft Class G cement.",
-        "Tag TOC (call CalGEM to witness).",
-        "POOH.",
-        "Confirm cement in all surface annuli.",
-        "RDMO.",
-        "Move in welder to cut casing 5–10 ft below grade; weld plate with well API # indicated.",
-        "Call CalGEM to witness."
-      ]
-    },
-    "docs": {
-      "program": "programs/A-7I_program.pdf",
-      "program_label": "Abandonment program (rev3.0)",
-      "current_diagram": "diagrams/A-7I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration (v2)",
-      "proposed_diagram": "diagrams/A-7I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram (v3)"
-    },
-    "source": {
-      "permit_pdf": "NOI Prep/CalGEM Submittals/NOI Approval Letters/Angus A-7i - API 0405921474_NOI Permit Acceptance Notice.pdf",
-      "permit_approved_date": "2026-05-29",
-      "program_pdf": "NOI Prep/A-7i NOI/CalGEM submittals/4th submittal/Abandonment Program - A-7i_rev3.0.pdf",
-      "program_rev": "rev3.0",
-      "current_diagram_src": "NOI Prep/A-7i NOI/CalGEM submittals/A-7i Current Configuration Diagram - v2.pdf",
-      "proposed_diagram_src": "NOI Prep/A-7i NOI/CalGEM submittals/4th submittal/A-7i Proposed P&A Diagram - v3.pdf",
-      "captured_on": "2026-06-19"
-    }
+  "datum_note": "All depths referenced to Kelly Bushing, 20 ft above ground; ground elevation 37 ft above sea level.",
+  "bhp_assumed_psi": 1293,
+  "top_perf": {
+   "md_ft": 3443,
+   "tvd_ft": 3007
   },
-  "A-17": {
-    "well_display": "A-17",
-    "api": "0405921420",
-    "docs": {
-      "program": "programs/A-17_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-17_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-17_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
+  "bfw_ft": 1494,
+  "usdw_base_ft": 1602,
+  "td_ft": 3793,
+  "td_note": "Cleanout / total-depth target for the program; first cement plug is set off bottom here.",
+  "zone_tops": [
+   {
+    "name": "Upper Bolsa",
+    "depth_ft": 2556,
+    "note": "Uppermost hydrocarbon zone (UHZ)"
+   },
+   {
+    "name": "Middle Bolsa",
+    "depth_ft": 2880
+   },
+   {
+    "name": "Lower Bolsa",
+    "depth_ft": 3017
+   },
+   {
+    "name": "Ashton",
+    "depth_ft": 3197
+   }
+  ],
+  "plugs": [
+   {
+    "n": 1,
+    "top_ft": 3097,
+    "bottom_ft": 3793,
+    "cement_cuft": 170,
+    "cement": "Class G",
+    "note": "Sets off TD up to 100 ft above the top of the Ashton; isolates the Bolsa hydrocarbon zones."
+   },
+   {
+    "n": 2,
+    "top_ft": 2456,
+    "bottom_ft": 3097,
+    "cement_cuft": 220,
+    "cement": "Class G",
+    "note": "Tops out 100 ft above the Upper Bolsa (UHZ)."
+   },
+   {
+    "n": 3,
+    "top_ft": 1394,
+    "bottom_ft": 1603,
+    "cement_cuft": 72,
+    "cement": "Class G",
+    "note": "Balanced plug from below the base of USDW (1,602 ft) to 100 ft above the base of freshwater (1,494 ft)."
+   },
+   {
+    "n": 4,
+    "top_ft": 0,
+    "bottom_ft": 120,
+    "cement_cuft": 42,
+    "cement": "Class G",
+    "note": "Surface plug, cement to surface."
+   }
+  ],
+  "abandonment_mud": [
+   {
+    "from_ft": 1603,
+    "to_ft": 2456,
+    "cuft": 292,
+    "density_lb_cuft": 72
+   },
+   {
+    "from_ft": 120,
+    "to_ft": 1394,
+    "cuft": 436,
+    "density_lb_cuft": 72
+   }
+  ],
+  "program": {
+   "rev": "rev3.0",
+   "title": "Abandonment Program (rev3.0)",
+   "steps": [
+    "MIRU service rig and associated equipment.",
+    "NU Class II 2M BOPE c/w Class A monitoring system on 8-5/8\" casing. Call for CalGEM inspection. (Assumed BHP ~1,293 psi; normally pressured at 0.43 psi/ft — top perf 3,443 ft MD = 3,007 ft TVD.)",
+    "RIH tubing open-ended and attempt to reach TD at 3,793 ft.",
+    "POOH.",
+    "MIRU wireline and run CBL from 3,200 ft – 1,300 ft. Confirm ETOC with CalGEM.",
+    "Call CalGEM to witness placing of cement.",
+    "RIH open-ended tubing.",
+    "Pump cement plug #1 from 3,793 ft – 3,097 ft (100 ft above top Ashton). ~170 cu ft Class G cement.",
+    "WOC – tag plug at 3,097 ft (call CalGEM to witness).",
+    "Pump cement plug #2 from 3,097 ft – 2,456 ft (100 ft above top UHZ). ~220 cu ft Class G cement.",
+    "WOC – tag plug at 2,456 ft (call CalGEM to witness).",
+    "Call CalGEM to witness placement of 72 lb/cu ft abandonment mud from 2,456 ft – 1,603 ft (292 cu ft).",
+    "RIH open-ended tubing to 1,603 ft.",
+    "Set balanced plug #3 from 1,603 ft – 1,394 ft (below base of USDW to 100 ft above BFW). ~72 cu ft Class G cement.",
+    "Tag TOC at 1,394 ft or higher (call CalGEM to witness).",
+    "Call CalGEM to witness placement of 72 lb/cu ft abandonment mud from 1,394 ft – 120 ft (436 cu ft).",
+    "Set balanced plug #4 at 120 ft, cement to surface. ~42 cu ft Class G cement.",
+    "Tag TOC (call CalGEM to witness).",
+    "POOH.",
+    "Confirm cement in all surface annuli.",
+    "RDMO.",
+    "Move in welder to cut casing 5–10 ft below grade; weld plate with well API # indicated.",
+    "Call CalGEM to witness."
+   ]
   },
-  "A-18": {
-    "well_display": "A-18",
-    "api": "0405921419",
-    "docs": {
-      "program": "programs/A-18_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-18_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-18_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
+  "docs": {
+   "program": "programs/A-7I_program.pdf",
+   "program_label": "Abandonment program (rev3.0)",
+   "current_diagram": "diagrams/A-7I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration (v2)",
+   "proposed_diagram": "diagrams/A-7I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram (v3)"
   },
-  "B-1": {
-    "well_display": "B-1",
-    "api": "0405921479",
-    "docs": {
-      "program": "programs/B-1_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-1_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-1_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
+  "source": {
+   "permit_pdf": "NOI Prep/CalGEM Submittals/NOI Approval Letters/Angus A-7i - API 0405921474_NOI Permit Acceptance Notice.pdf",
+   "permit_approved_date": "2026-05-29",
+   "program_pdf": "NOI Prep/A-7i NOI/CalGEM submittals/4th submittal/Abandonment Program - A-7i_rev3.0.pdf",
+   "program_rev": "rev3.0",
+   "current_diagram_src": "NOI Prep/A-7i NOI/CalGEM submittals/A-7i Current Configuration Diagram - v2.pdf",
+   "proposed_diagram_src": "NOI Prep/A-7i NOI/CalGEM submittals/4th submittal/A-7i Proposed P&A Diagram - v3.pdf",
+   "captured_on": "2026-06-19"
   },
-  "B-2I": {
-    "well_display": "B-2i",
-    "api": "0405921480",
-    "docs": {
-      "program": "programs/B-2I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-2I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-2I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
+  "rig_no": "27"
+ },
+ "A-17": {
+  "well_display": "A-17",
+  "api": "0405921420",
+  "docs": {
+   "program": "programs/A-17_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-17_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-17_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
   },
-  "A-12": {
-    "well_display": "A-12",
-    "api": "0405921475",
-    "docs": {
-      "program": "programs/A-12_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-12_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-12_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-10I": {
-    "well_display": "A-10i",
-    "api": "0405921472",
-    "docs": {
-      "program": "programs/A-10I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-10I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-10I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-8I": {
-    "well_display": "A-8i",
-    "api": "0405921471",
-    "docs": {
-      "program": "programs/A-8I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-8I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-8I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-13": {
-    "well_display": "A-13",
-    "api": "0405921469",
-    "docs": {
-      "program": "programs/A-13_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-13_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-13_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-14I": {
-    "well_display": "A-14i",
-    "api": "0405921467",
-    "docs": {
-      "program": "programs/A-14I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-14I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-14I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-2": {
-    "well_display": "A-2",
-    "api": "0405921477",
-    "docs": {
-      "program": "programs/A-2_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-2_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-2_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "B-14": {
-    "well_display": "B-14",
-    "api": "0405921491",
-    "docs": {
-      "program": "programs/B-14_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-14_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-14_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "B-5I": {
-    "well_display": "B-5i",
-    "api": "0405921483",
-    "docs": {
-      "program": "programs/B-5I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-5I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-5I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "B-3": {
-    "well_display": "B-3",
-    "api": "0405921481",
-    "docs": {
-      "program": "programs/B-3_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-3_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-3_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "B-8I": {
-    "well_display": "B-8i",
-    "api": "0405921485",
-    "docs": {
-      "program": "programs/B-8I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-8I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-8I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-15": {
-    "well_display": "A-15",
-    "api": "0405921464",
-    "docs": {
-      "program": "programs/A-15_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-15_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-15_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-3I": {
-    "well_display": "A-3i",
-    "api": "0405921478",
-    "docs": {
-      "program": "programs/A-3I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-3I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-3I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    },
-    "source": {
-      "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
-    }
-  },
-  "A-5": {
-    "well_display": "A-5",
-    "api": "0405921473",
-    "docs": {
-      "program": "programs/A-5_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-5_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-5_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "A-6": {
-    "well_display": "A-6",
-    "api": "0405921470",
-    "docs": {
-      "program": "programs/A-6_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-6_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-6_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "A-1I": {
-    "well_display": "A-1i",
-    "api": "0405921476",
-    "docs": {
-      "program": "programs/A-1I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/A-1I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/A-1I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-11I": {
-    "well_display": "B-11i",
-    "api": "0405921488",
-    "docs": {
-      "program": "programs/B-11I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-11I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-11I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-16I": {
-    "well_display": "B-16i",
-    "api": "0405921493",
-    "docs": {
-      "program": "programs/B-16I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-16I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-16I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-9I": {
-    "well_display": "B-9i",
-    "api": "0405921486",
-    "docs": {
-      "program": "programs/B-9I_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-9I_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-9I_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-4": {
-    "well_display": "B-4",
-    "api": "0405921482",
-    "docs": {
-      "program": "programs/B-4_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-4_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-4_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-7": {
-    "well_display": "B-7",
-    "api": "0405921484",
-    "docs": {
-      "program": "programs/B-7_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-7_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-7_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-10": {
-    "well_display": "B-10",
-    "api": "0405921487",
-    "docs": {
-      "program": "programs/B-10_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-10_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-10_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-12": {
-    "well_display": "B-12",
-    "api": "0405921489",
-    "docs": {
-      "program": "programs/B-12_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-12_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-12_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
-  },
-  "B-13": {
-    "well_display": "B-13",
-    "api": "0405921490",
-    "docs": {
-      "program": "programs/B-13_program.pdf",
-      "program_label": "Abandonment program",
-      "current_diagram": "diagrams/B-13_current.pdf",
-      "current_diagram_label": "Current wellbore configuration",
-      "proposed_diagram": "diagrams/B-13_proposed.pdf",
-      "proposed_diagram_label": "Proposed P&A diagram"
-    }
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
   }
+ },
+ "A-18": {
+  "well_display": "A-18",
+  "api": "0405921419",
+  "docs": {
+   "program": "programs/A-18_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-18_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-18_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "B-1": {
+  "well_display": "B-1",
+  "api": "0405921479",
+  "docs": {
+   "program": "programs/B-1_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-1_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-1_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "B-2I": {
+  "well_display": "B-2i",
+  "api": "0405921480",
+  "docs": {
+   "program": "programs/B-2I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-2I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-2I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-12": {
+  "well_display": "A-12",
+  "api": "0405921475",
+  "docs": {
+   "program": "programs/A-12_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-12_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-12_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-10I": {
+  "well_display": "A-10i",
+  "api": "0405921472",
+  "docs": {
+   "program": "programs/A-10I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-10I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-10I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-8I": {
+  "well_display": "A-8i",
+  "api": "0405921471",
+  "docs": {
+   "program": "programs/A-8I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-8I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-8I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-13": {
+  "well_display": "A-13",
+  "api": "0405921469",
+  "docs": {
+   "program": "programs/A-13_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-13_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-13_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-14I": {
+  "well_display": "A-14i",
+  "api": "0405921467",
+  "docs": {
+   "program": "programs/A-14I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-14I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-14I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-2": {
+  "well_display": "A-2",
+  "api": "0405921477",
+  "docs": {
+   "program": "programs/A-2_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-2_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-2_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "B-14": {
+  "well_display": "B-14",
+  "api": "0405921491",
+  "docs": {
+   "program": "programs/B-14_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-14_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-14_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "B-5I": {
+  "well_display": "B-5i",
+  "api": "0405921483",
+  "docs": {
+   "program": "programs/B-5I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-5I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-5I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "B-3": {
+  "well_display": "B-3",
+  "api": "0405921481",
+  "docs": {
+   "program": "programs/B-3_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-3_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-3_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "B-8I": {
+  "well_display": "B-8i",
+  "api": "0405921485",
+  "docs": {
+   "program": "programs/B-8I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-8I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-8I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-15": {
+  "well_display": "A-15",
+  "api": "0405921464",
+  "docs": {
+   "program": "programs/A-15_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-15_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-15_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-3I": {
+  "well_display": "A-3i",
+  "api": "0405921478",
+  "docs": {
+   "program": "programs/A-3I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-3I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-3I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "docs_from": "CalGEM Submittals/Submitted NOIs (as-submitted set)"
+  }
+ },
+ "A-5": {
+  "well_display": "A-5",
+  "api": "0405921473",
+  "docs": {
+   "program": "programs/A-5_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-5_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-5_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "A-6": {
+  "well_display": "A-6",
+  "api": "0405921470",
+  "docs": {
+   "program": "programs/A-6_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-6_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-6_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "A-1I": {
+  "well_display": "A-1i",
+  "api": "0405921476",
+  "docs": {
+   "program": "programs/A-1I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/A-1I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/A-1I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-11I": {
+  "well_display": "B-11i",
+  "api": "0405921488",
+  "permit": {
+   "no": "7056306",
+   "field": "Huntington Beach",
+   "critical_well": true,
+   "note": "Permit # from permits.json. Approval-date/engineer metadata not captured in this run (B-11i not Slack-approved; permit acceptance PDF is a Dropbox link, not hosted). Rig has mobilized, so the NOI is approved.",
+   "approved_date": "2026-06-12",
+   "noi_submitted": "2026-03-13"
+  },
+  "datum_note": "Depths as reported in the approved abandonment program; top perf 2,934 ft MD = 2,922 ft TVD.",
+  "bhp_assumed_psi": 1259,
+  "bhp_note": "Normally pressured at 0.431 psi/ft; ~1,259 psi at top perf.",
+  "top_perf": {
+   "md_ft": 2934,
+   "tvd_ft": 2922
+  },
+  "bfw_ft": 1474,
+  "bfw_note": "Base of fresh water inferred from program: balanced plug tops out 100 ft above BFW at 1,374 ft.",
+  "usdw_base_ft": 1580,
+  "usdw_note": "Base of USDW inferred from program: balanced plug set from below bUSDW (~1,580 ft) up to 1,374 ft.",
+  "td_ft": 3165,
+  "td_note": "Cleanout / total-depth target for the program; first plug sets off the approved tag depth near TD.",
+  "zone_tops": [
+   {
+    "name": "Uppermost hydrocarbon zone (UHZ)",
+    "depth_ft": 2458,
+    "note": "Derived: plug #1 tops out 100 ft above UHZ at 2,358 ft."
+   },
+   {
+    "name": "Upper gas stringer",
+    "depth_ft": 2180,
+    "note": "Derived: plug #2 tops out 100 ft above the stringer at 2,080 ft."
+   }
+  ],
+  "zone_tops_note": "Zone tops are derived from the program's '100 ft above top of X' plug callouts, not from a formation-tops table in the permit; treat as approximate.",
+  "plugs": [
+   {
+    "n": 1,
+    "top_ft": 2358,
+    "bottom_ft": 3165,
+    "cement_cuft": 226,
+    "cement": "Class G",
+    "note": "From approved tag depth (near TD ~3,165 ft) up to 2,358 ft (100 ft above top UHZ)."
+   },
+   {
+    "n": 2,
+    "top_ft": 2080,
+    "bottom_ft": 2358,
+    "cement_cuft": 96,
+    "cement": "Class G",
+    "note": "Tops out 100 ft above the upper gas stringer."
+   },
+   {
+    "n": "squeeze",
+    "top_ft": 1374,
+    "bottom_ft": 1450,
+    "cement_cuft": 32,
+    "cement": "Class G",
+    "note": "Perforate 1,440–1,450 ft and squeeze 32 cu.ft into perfs; cement rises in annulus to 1,374 ft (100 ft above BFW)."
+   },
+   {
+    "n": 3,
+    "top_ft": 1374,
+    "bottom_ft": 1580,
+    "cement_cuft": 71,
+    "cement": "Class G",
+    "note": "Balanced plug from below the base of USDW (~1,580 ft) to 100 ft above BFW (1,374 ft)."
+   },
+   {
+    "n": 4,
+    "top_ft": 0,
+    "bottom_ft": 120,
+    "cement_cuft": 41,
+    "cement": "Class G",
+    "note": "Surface plug, cement to surface."
+   }
+  ],
+  "abandonment_mud": [
+   {
+    "from_ft": 1580,
+    "to_ft": 2080,
+    "cuft": 172,
+    "density_lb_cuft": 72
+   },
+   {
+    "from_ft": 120,
+    "to_ft": 1374,
+    "cuft": 430,
+    "density_lb_cuft": 72
+   }
+  ],
+  "program": {
+   "rev": "rev3.0",
+   "title": "Abandonment Program (rev.3.0)",
+   "steps": [
+    "MIRU Service rig and associated equipment.",
+    "NU Class II 2M BOPE c/w Class A monitoring system on 8-5/8\" casing. Call for CalGEM inspection. (Normally pressured 0.431 psi/ft = ~1,259 psi; top perf 2,934 ft MD = 2,922 ft TVD.)",
+    "RIH with open-ended tubing and attempt to clean out to TD at 3,165 ft. POOH.",
+    "MIRU wireline and run CBL from 2,600–1,300 ft. Verify TOC and confirm with CalGEM the UHZ balance plug, upper gas stringer balance plug, bUSDW coverage, and planned perf/squeeze interval for BFW.",
+    "RIH to approved tag depth.",
+    "Call CalGEM to witness placing of cement.",
+    "Pump cement plug #1 from approved tag depth to 2,358 ft (100 ft above top UHZ). ~226 cu ft Class G cement.",
+    "WOC – tag plug at 2,358 ft (call CalGEM to witness).",
+    "Pump cement plug #2 from 2,358 ft to 2,080 ft (100 ft above top upper gas stringer). ~96 cu ft Class G cement.",
+    "WOC – tag plug at 2,080 ft (call CalGEM to witness).",
+    "Call CalGEM to witness placement of 72 lb/cu ft abandonment mud from 2,080–1,580 ft (172 cu ft). POOH.",
+    "RIH open-ended tubing to 1,420 ft.",
+    "MIRU wireline and RIH with thru-tubing strip guns.",
+    "Perforate from 1,440–1,450 ft. Rig out wireline.",
+    "Lower tubing bottom to 1,580 ft.",
+    "Squeeze 32 cu ft cement into perfs (1,450 ft to 1,374 ft in annulus, 100 ft above BFW).",
+    "Set balanced cement plug from 1,580–1,374 ft (from below bUSDW to 100 ft above BFW). ~71 cu ft Class G cement.",
+    "Tag TOC at 1,374 ft or higher (call CalGEM to witness).",
+    "Call CalGEM to witness placement of 72 lb/cu ft abandonment mud from 120–1,374 ft (430 cu ft).",
+    "Set balanced cement plug at 120 ft, cement to surface. ~41 cu ft Class G cement.",
+    "Tag TOC (call CalGEM to witness).",
+    "POOH.",
+    "Confirm cement in all surface annuli.",
+    "RDMO.",
+    "Move in welder to cut casing 5–10 ft below grade and weld plate with well API # indicated. Call CalGEM to witness."
+   ]
+  },
+  "docs": {
+   "program": "programs/B-11I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-11I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-11I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  },
+  "source": {
+   "program_pdf_hosted": "site/programs/B-11I_program.pdf",
+   "program_rev": "rev3.0",
+   "captured_on": "2026-06-30",
+   "capture_note": "Full context extracted from the hosted rev3.0 program PDF during the 2026-06-30 evening run when the rig moved to B-11i. Zone tops, BFW, and bUSDW are derived from program plug callouts (no formation-tops table read); permit approval metadata not captured this run."
+  },
+  "rig_no": "5"
+ },
+ "B-16I": {
+  "well_display": "B-16i",
+  "api": "0405921493",
+  "docs": {
+   "program": "programs/B-16I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-16I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-16I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-9I": {
+  "well_display": "B-9i",
+  "api": "0405921486",
+  "docs": {
+   "program": "programs/B-9I_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-9I_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-9I_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-4": {
+  "well_display": "B-4",
+  "api": "0405921482",
+  "docs": {
+   "program": "programs/B-4_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-4_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-4_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-7": {
+  "well_display": "B-7",
+  "api": "0405921484",
+  "docs": {
+   "program": "programs/B-7_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-7_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-7_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-10": {
+  "well_display": "B-10",
+  "api": "0405921487",
+  "docs": {
+   "program": "programs/B-10_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-10_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-10_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-12": {
+  "well_display": "B-12",
+  "api": "0405921489",
+  "docs": {
+   "program": "programs/B-12_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-12_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-12_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ },
+ "B-13": {
+  "well_display": "B-13",
+  "api": "0405921490",
+  "docs": {
+   "program": "programs/B-13_program.pdf",
+   "program_label": "Abandonment program",
+   "current_diagram": "diagrams/B-13_current.pdf",
+   "current_diagram_label": "Current wellbore configuration",
+   "proposed_diagram": "diagrams/B-13_proposed.pdf",
+   "proposed_diagram_label": "Proposed P&A diagram"
+  }
+ }
 }

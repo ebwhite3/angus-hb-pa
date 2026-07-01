@@ -1,10 +1,11 @@
 {
  "meta": {
   "source": "Daily Rig Report emails from Jorge Macias (JMacias@ewscorp.net), EWS Corp",
-  "last_email_date": "2026-06-19T04:22:08Z",
-  "last_email_id": "19ede1d9269f48c3",
-  "current_rig_well": "A-7I",
-  "current_rig_well_display": "A-7i",
+  "last_email_date": "2026-07-01T05:28:41Z",
+  "last_email_id": "19f1c26c33549586",
+  "current_rig_well": "B-11I",
+  "current_rig_well_display": "B-11i",
+  "last_refresh": "2026-06-30",
   "note": "Archive seeded 2026-06-05 from Gmail; backfilled 2026-06-05 from EWS daily report workbooks (Engineering/Daily Reports) covering A-17, A-18, B-1, B-2i, A-12, A-10i, A-5, A-6 from 2026-03-23 onward. A-8i reporting begins at Day 3 (no Day 1-2 reports exist in email or workbooks)."
  },
  "reports": [
@@ -784,15 +785,119 @@
    "summary": "The sand problem persisted overnight. When the crew ran tubing back in, they found that 97 ft of sand had sloughed back into the hole, so they tagged fill at 2,947 ft — higher than where they left off. They mixed a thick fluid (a \"viscosity pill\") to help carry sand to surface, established circulation, and washed the fill down from 2,947 ft to 3,094 ft, but the tubing became stuck in the hole. The crew worked it free, losing 180 barrels of fluid into the formation while fine sand returned to surface, and noted the tubing dragged (\"pulling tight\") between 3,094 ft and 2,830 ft — a sign the hole remains unstable. They pulled back, set the tubing tail at 2,036 ft, and secured the well overnight. This is still wellbore-cleanout work ahead of plugging; no cement plugs have been set and the well is not yet plugged and abandoned.",
    "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Make up 2-3/8'' saw tooth collar & pick up 1 jt of 2-3/8'' eue 8rd tubing, Run in hole with 88 jts of 2-7/8'' eue 8rd tubing & tag well @ 2947', 97' of fill came in overnight, Discuss with E&B rep, Make a 45 viscosity pill, Make up king swivel & established circulation, Circulate fill out from 2947' to 3094' & got stuck, Worked tubing free ( Note: Lost 180 bbls, Returns are fine sand ) Discuss with E&B rep, Pull out hole with 36 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2036' ( Note: Pulling tight 3094' to 2830' ) Discuss with E&B rep, Close in & secure well overnight, End of shift.",
    "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19ede1d9269f48c3"
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 10,
+   "date": "2026-06-19",
+   "subject": "Daily Rig Report Angus # A-7i  ( Day 10 )",
+   "phase": "Casing integrity testing — staged packer tests located a split casing (bad spot) at 2,575–2,603 ft",
+   "job_complete": false,
+   "summary": "Day 10 was a diagnostic day that finally pinpointed the casing problem the crew has been fighting all week. After tagging fill at 3,038 ft (56 ft of sand had settled back in overnight), the crew ran a retrievable packer — a tool that seals against the casing wall to isolate a section for testing — and pressure-tested the casing in stages by moving the packer up and down. The casing held when sealed at 2,575 ft (500 psi, solid) and held again when the test was isolated below 2,603 ft (700 psi from 2,603 ft down to 3,038 ft, solid), but it failed — fluid leaked straight away — whenever the test spanned the 2,575–2,603 ft interval. That isolates the leak to a roughly 28-foot “bad spot” / split casing between 2,575 and 2,603 ft: the hole that has been bleeding off pressure and preventing cementing all week. With the casing breach now located, the crew pulled out, secured the well overnight, and demobilized to the Bakersfield yard. No cement has been set and the well is not yet plugged — the next step is to repair or straddle that split before plugging can resume.",
+   "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Run in hole with 36 jts of 2-7/8'' eue 8rd tubing & tag well @ 3038', 56' of fill came in overnight, Discuss with E&B rep, Pull out hole with 91 jts of 2-7/8'' eue 8rd tubing, 1 jts of 2-3/8'' eue 8rd tubing & 2-3/8'' saw tooth collar, Make up 8-5/8'' Arrowset 1X-Packer, Run in hole with 77 jts of 2-7/8'' eue 8rd tubing & set 8-5/8'' Arrowset 1X-Packer @ 2575', Pressure test casing to 500-psi for 10 minutes ( Solid ) Release 8-5/8'' Arrowset 1X-Packer, Run in hole with 3 jts of 2-7/8'' eue 8rd tubing & set 8-5/8'' Arrowset 1X-Packer @ 2674', Attempt to pressure test casing to 500-psi ( Fail ) pumping away @ 200-psi, Release 8-5/8'' Arrowset 1X-Packer, Pull out hole with 2 jts of 2-7/8'' eue 8rd tubing & set 8-5/8'' Arrowset 1X-Packer @ 2603', Attempt to pressure test casing to 500-psi ( Fail ) pumping away @ 0-psi, Established injection rate @ 2-Bpm @ 0-psi, Discuss with E&B rep, Pump down the tubing & pressure test casing from 2603' to 3038' @ 700-psi ( Solid ) Discuss with E&B rep ( Note: Bad spot / Split casing 2575' to 2603' ) Release 8-5/8'' Arrowset 1X-Packer, Pull out hole with 78 jts of 2-7/8'' eue 8rd tubing & 8-5/8'' Arrowset 1X-Packer, Close in & secure well overnight, Travel to Bakersfield yard, End of shift."
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 11,
+   "date": "2026-06-22",
+   "subject": "Daily Rig Report Angus # A-7i ( Day 11 )",
+   "phase": "Casing repair — cement plug 2,328–2,628 ft + hesitation squeeze across the 2,575–2,603 ft split; ETOC ~2,525 ft, shut in 400 psi",
+   "job_complete": false,
+   "summary": "After demobilizing Friday once they had located the casing split, the crew returned to A-7i on Monday to repair it. They ran tubing back in and set the tubing tail at 2,628 ft, just below the damaged interval, then brought in cementers (Excalibur Well Services) to place a cement plug from 2,628 ft up to 2,328 ft — about 103 cubic feet of heavy 'class G' cement — spanning the 2,575–2,603 ft split that has been bleeding off pressure all week. They followed with a 'hesitation squeeze': roughly 67 cubic feet of additional cement pumped in pulses, pausing between each to force cement into the gap in the casing and build pressure, then shut the well in at 400 psi to hold it in place. The estimated top of cement is about 2,525 ft inside the 8-5/8-inch casing. This is casing-repair work to seal the breach so plugging can later resume; no abandonment plugs have been set across the producing zones and the well is not yet plugged and abandoned.",
+   "full_text": "Travel to Huntington Beach Lease, Held safety meeting with crew & filled out JSA, Service rig & equipment, Run in hole with 79 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2628', Rig up Excalibur Well Services Cementers, Pump ahead 5 bbls of fresh water, Cement plug from 2628' to 2328', Mix & pump 102.6 cu.ft of class G + 35% S/F cement at 15.6 ppg, Displace with 12.5 bbls of fresh water, Lay down 10 jts of 2-7/8'' eue 8rd tubing, Pull out hole with 69 jts of 2-7/8'' eue 8rd tubing, Fill casing with 6.2 bbls of fresh water, Down squeeze 67.4 cu.ft of cement ( Note: Hesitate squeeze ) Shut in well with 400-psi, E.T.O.C on 8-5/8'' casing @ 2525' + -, End of shift."
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 12,
+   "date": "2026-06-23",
+   "subject": "Daily Rig Report Angus # A-7i ( Day 12 )",
+   "phase": "Casing-integrity test to 500 psi (held) confirms Day 11 squeeze; drilled out squeeze cement 2,494–2,632 ft, cleaned to 2,687 ft; tubing tail set @ 2,025 ft",
+   "job_complete": false,
+   "summary": "The crew returned to A-7i on Tuesday to confirm Monday's casing repair held and then reopen the wellbore. They pressure-tested the 8-5/8-inch casing to 500 psi for 15 minutes and it held, confirming the cement squeeze placed the day before successfully sealed the casing split that had been bleeding off pressure all week. They then ran in with a drilling assembly (a 7-5/8-inch tricone bit and four drill collars), tagged the top of the new cement at 2,494 ft, and drilled it back out from 2,494 ft down to 2,632 ft, cleaning remaining fill to 2,687 ft and circulating the hole clean. This reopens the wellbore through the repaired interval so the abandonment program can resume. They pulled back up, set the tubing tail at 2,025 ft, and secured the well overnight; no abandonment plugs have been set across the producing zones, so the well is not yet plugged and abandoned.",
+   "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Pressure test casing to 500-psi for 15 minutes ( Held ) Make up 7-5/8'' tricone & pick up ( 4 ) 4-3/4'' drill collar, Run in hole with 71 jts of 2-7/8'' eue 8rd tubing & tag T.O.C @ 2494', Discuss with E&B rep, Make up king swivel & established circulation, Drill out cement from 2494' to 2632', Circulated fill out from 2632' to 2687', Circulated hole clean 1 hole volume ( 163 bbls ) Rig out king swivel, Pull out hole with 20 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2025', Close in & secure well overnight, End of shift."
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 13,
+   "date": "2026-06-24",
+   "subject": "Daily Rig Report Angus # A-7i  ( Day 13 )",
+   "phase": "Wellbore cleanout — washed sand 2,687–3,264 ft; recovered 197 cu.ft fine sand (largest single-day recovery), tubing tail set @ 1,930 ft",
+   "job_complete": false,
+   "summary": "With the casing split now repaired and proven, the crew got back to clearing the sand that has plagued this well. They ran tubing in, tapped the top of the sand fill at 2,687 ft, and used a power swivel to circulate fluid and wash the fill downward — cleaning all the way from 2,687 ft to 3,264 ft, a 577-ft advance and the deepest progress made on the job so far. They flushed the hole clean with two full hole-volumes (396 barrels) of fluid and recovered about 197 cubic feet of fine sand — by far the largest single-day sand recovery, a sign the repaired casing finally let them make real headway. The crew then pulled back, set the open end of the tubing (the tubing tail) at 1,930 ft, and secured the well overnight. This is still wellbore-cleanout work ahead of plugging; no cement abandonment plugs have been set across the producing zones, and the well is not yet plugged and abandoned.",
+   "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other haazardous gases none present, Run in hole with 20 jts of 2-7/8'' eue 8rd tubing & tag well @ 2687', Make up power swivel & established circulation, Circulated fill out from 2687' to 3264', Circulated hole clean 2 hole volume ( 396 bbls ) Rig out power swivel ( Note: Recover 197 cu.ft fine sand ) Pull out hole with 41 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 1930', Close in & secure well overnight, End of shift.",
+   "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19efd288e1011343"
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 14,
+   "date": "2026-06-26",
+   "subject": "Daily Rig Report Angus # A-7i ( Day 14 )",
+   "phase": "Wellbore cleanout to T.O.L. + Cement Bond Log — washed to 3,315 ft (top of liner), ran CBL on 8-5/8\" casing surface–3,315 ft, tubing tail set @ 2,469 ft",
+   "job_complete": false,
+   "summary": "The cleanout campaign reached its target depth and the casing-integrity check is now complete. The crew tagged fill at 3,262 ft, then washed the remaining sand down to 3,315 ft — confirming this as the top of the liner (T.O.L.), the depth where the 8-5/8\" casing terminates and the cemented liner begins. They circulated two hole volumes (403 bbls) and recovered 18.1 cu.ft of fine sand, a small tail-off following Day 13's much larger 197 cu.ft recovery, confirming the wellbore is finally clean. Raptor Wireline then ran a Cement Bond Log (CBL) on the 8-5/8\" casing from 3,315 ft up to surface — this acoustic log measures cement-to-casing bond quality across the entire casing string, a CalGEM-required check that confirms the casing has competent cement isolation before any abandonment plugs are placed. The crew then ran a smaller (1-5/8\") tubing string crossed over to the 2-7/8\" workstring and set the tubing tail at 2,469 ft, positioning for cement-plug placement; no abandonment plugs have been set across the producing zones yet, so the well is not yet plugged and abandoned.",
+   "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Run in hole with 41 jts of 2-7/8'' eue 8rd tubing & tag well @ 3262', Make up power swivel & established circulation, Circulated fill out from 3262' to 3315' ( Note: Found T.O.L @ 3315' ) Circulated hole clean 2 hole volume ( 403 bbls ) Rig out power swivel ( Note: Recover 18.1 cu.ft fine sand ) Pull out hole with 96 jts of 2-7/8'' eue 8rd tubing, ( 4 ) 4-3/4'' drill collars & 7-5/8'' tricone bit, Rig up Raptor Wireline Services, Cement Bond Log on 8-5/8'' casing from 3315' to surface, Rig out Raptor Wireline Services, Pick up 15 jts of 1-5/8'' coarse 6rd tubing, 1-5/8'' coarse x 2-3/8'' eue cross over, 2-3/8'' eue x 2-7/8'' eue cross over, Run in hole with 60 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 2469', Close in & secure well overnight, Travel to Bakersfield yard, End of shift.",
+   "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19f0a6accacd62e7",
+   "ingest_note": "Email sent Sat 2026-06-27 11:49 AM PT (unusual late-morning send); work_date set to 2026-06-26 (most recent prior weekday consistent with 'End of shift' + travel to Bakersfield). Verify with Jorge if uncertain."
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 15,
+   "date": "2026-06-29",
+   "subject": "Daily Rig Report Angus # A-7i ( Day 15 )",
+   "phase": "Plugging — reached TD (3,793 ft); first abandonment cement plug set 3,793→3,563 ft; stuck tubing freed",
+   "job_complete": false,
+   "summary": "Day 15 was a major turning point: after two weeks of cleanout and casing repair, the crew finally reached the bottom of the well (total depth, 3,793 ft) and set the first abandonment cement plug. They ran tubing back in, tapped fill at 3,316 ft, and circulated fluid to wash the last of the recurring sand down to total depth — losing 320 barrels into the formation along the way and spotting a thick 'viscosity pill' (a high-viscosity mud slug) to seal the loss zone before flushing the hole clean with about 414 barrels. CalGEM inspector Jake Daye witnessed and approved both the blowout-preventer inspection and the bottom-hole tag at 3,793 ft, clearing the crew to begin permanent plugging. Excalibur's cementers then placed the first cement plug from 3,793 ft up to 3,563 ft (about 42 cubic feet of Class G cement) — the first barrier set across the bottom of the well. While laying down tubing afterward the string got stuck again but was worked free at 80,000 lbs of pull, and the well was secured overnight. This begins the cement-plugging phase across the producing zones; the well is not yet plugged and abandoned (no Job Complete).",
+   "full_text": "Travel to Huntington Beach Lease, Held safety meeting with crew & filled out JSA, Service rig & equipment, Run in hole with 26 jts of 2-7/8'' eue 8rd tubing & tag well @ 3316', Make up king swivel & established circulation, Circulated fill out from 3316' to 3793' ( Note: While circulating lost 320 bbls of fluid, Make a 45 viscosity pill & spot pill downhole ) Circulated hole clean 2 hole volumes ( 413.8 bbls ) Rig out king swivel, CalGEM rep Jake Daye witnessed & approved B.O.P inspection at 2:10pm, CalGEM rep Jake Daye witnessed & approved tag depth @ 3793' at 2:18pm, Rig up Excalibur Well Services Cementers, Pump ahead 5 bbls of fresh water, Cement plug from 3793' to 3563', Mix & pump 42.06 cu.ft of class G + 35% S/F cement at 15.6 ppg, Displace with 19.6 bbls of fresh water, Lay down 8 jts of 2-7/8'' eue 8rd tubing ( Note: While laying down tubing notice that we were pulling over & got stuck ) Worked stuck tubing string 40K - 70K with no success, Discuss with E&B rep, Increased overpull on tubing string to 80K while working the tubing string, Successfully freeing tubing string, Pull out hole with 93 jts of 2-7/8'' eue 8rd tubing & 15 jts of 1-5/8'' coarse 6rd tubing, Close in & secure well overnight, End of shift.",
+   "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19f16f428743ca8f",
+   "ingest_note": "Email sent 2026-06-30 05:15 UTC = 2026-06-29 10:15 PM PDT; work_date set to 2026-06-29 (same-day evening send)."
+  },
+  {
+   "well": "A-7I",
+   "well_display": "A-7i",
+   "day": 16,
+   "date": "2026-06-30",
+   "subject": "Daily Rig Report Angus # A-7i  ( Day 16 )",
+   "phase": "Plugging — two-stage abandonment plug set 3,569→2,997 ft (161 cu.ft Class G); CalGEM (Megan Geer) witnessed; E.T.O.C ~2,997 ft",
+   "job_complete": false,
+   "summary": "Day 16 was the big plugging day on A-7i. The crew ran tubing back to bottom and tagged the top of the previous day's first cement plug at 3,569 ft — about 6 ft lower than planned, so a small amount of fresh cement went into the formation. A CalGEM inspector (Megan Geer) was on site and witnessed and approved both the tag depth and the cement placement. They then pumped a two-stage abandonment plug filling the wellbore from 3,569 ft up to roughly 2,997 ft (161 cubic feet of Class G cement total), sealing off the main oil-bearing zones. The report was not marked “Job Complete,” and the approved program still calls for additional plugs higher up (across the freshwater/USDW zone and at surface), so more abandonment work remains on A-7i even though the rig has since moved to B-11i.",
+   "full_text": "Held safety meeting with crew & filled out JSA, Service rig & equipment, Run in hole with 15 jts of 1-5/8'' coarse 6rd tubing & 94 jts of 2-7/8'' eue 8rd tubing, Tag well @ 3569', Discuss with E&B rep ( Note: Tag cement 6' low, 1 cu.ft of cement when into the formation ) CalGEM rep Megan Geer witnessed & approved tag depth @ 3569' at 8:40am, Rig up Excalibur Well Services Cementers, CalGEM rep Megan Geer witnessed the placing of cement plug from 3569' to 2997' at 9:48am, Pump ahead 5 bbls of fresh water, First stage plug from 3569' to 3352', Mix & pump 39.6 cu.ft of class G + 35% S/F cement at 15.6 ppg, Displace with 18.4 bbls of fresh water, Lay down 8 jts of 2-7/8'' eue 8rd tubing & set tubing tail @ 3350', Second stage plug from 3352' to 2997', Mix & pump 121.4 cu.ft of class G + 35% S/F cement at 15.6 ppg, Displace with 16.3 bbls of fresh water, Lay down 11 jts of 2-7/8'' eue 8rd tubing, E.T.O.C @ 2997' + -, Rig out Excalibur Well Services Cementers ( Note: Pump a total of 161 cu.ft of class G + 35% S/F cement at 15.6 ppg ) Pull out hole with 75 jts of 2-7/8'' eue 8rd tubing & lay down 15 jts of 1-5/8'' coarse 6rd tubing, Close in & secure well overnight, End of shift.",
+   "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19f1c1f637db220a",
+   "ingest_note": "Email sent 2026-07-01 05:20 UTC = 2026-06-30 10:20 PM PDT; work_date set to 2026-06-30. Not marked Job Complete; upper plugs (USDW & surface) per rev3.0 program still outstanding while rig moved to B-11i — see reconciliation flag."
+  },
+  {
+   "well": "B-11I",
+   "well_display": "B-11i",
+   "day": 1,
+   "date": "2026-06-30",
+   "subject": "Daily Rig Report Angus # B-11i  ( Day 1 )",
+   "phase": "Rig move & well entry — removed injection tree, released packer (rams seized), ran scraper, tagged T.O.L @ 2,845 ft; B.H.A set @ 519 ft",
+   "job_complete": false,
+   "summary": "The rig moved off A-7i and mobilized onto B-11i to begin that well's abandonment. The crew rigged up, monitored the well for H2S and other hazardous gases (none present), removed the injection wellhead/tree, and released the packer — the donut locking rams were seized with corrosion and had to be worked loose. After nippling up and function-testing the blowout preventer, they pulled the old tubing and packer, ran an 8-5/8″ casing scraper to clean the casing wall, and tagged the top of the liner at 2,845 ft. They finished by setting the bottom-hole assembly at 519 ft and securing the well overnight. This is standard first-day well-entry work — clearing out the old injection completion so cleanout and cement plugging can begin.",
+   "full_text": "Held safety meeting with crew & filled out JSA, Move rig & equipment to Angus # B-11i, L.O.T.O flow lines, Install plastic on location, M.I.R.U, Off load tools & equipment, Open well & monitor atmosphere for H2S & other hazardous gases none present, Remove grating from cellar, Remove injection tree & flow lines, Nipple down hub clamps, Unscrew donut locking rams ( Note: Donut locking rams were seized up due corrosion / rust ) Single out rig, Release 8-5/8'' Arrowset 1X- Packer, Nipple up & function test 8'' 900 series B.O.P ( Note: Strip on BOP ) Pull out hole with 85 jts of 2-7/8'' eue 8rd tubing & 8-5/8'' Arrowset 1X-Packer, Make up 8-5/8'' all weight scraper, Run in hole with 86 jts of 2-7/8'' eue 8rd tubing & tag T.O.L @ 2845', Pull out hole with 70 jts of 2-7/8'' eue 8rd tubing & set B.H.A @ 519', Close in & secure well overnight, End of shift.",
+   "source": "Daily Rig Report email from Jorge Macias (JMacias@ewscorp.net), msg 19f1c26c33549586",
+   "ingest_note": "Email sent 2026-07-01 05:28 UTC = 2026-06-30 10:28 PM PDT; work_date set to 2026-06-30. First mobilization on B-11i — new spud; current_rig_well repointed here."
   }
  ],
  "well_narrative": {
   "A-7I": {
-   "as_of_day": 9,
-   "as_of_date": "2026-06-18",
-   "story_so_far": "A-7i has been on the rig since June 8 (Day 9 as of June 18). The first four days went to rigging up, then freeing and cutting stuck tubing and fishing the cut tubing back out of the hole — with possible casing damage noted on Day 3. Since Day 5 the crew has fought the same problem for five straight days: fine sand keeps sloughing back into the wellbore faster than it can be cleaned out, repeatedly costing circulation (over 300 bbl lost on Day 7 alone) and sticking the tubing. No cement has been set yet — the well is still being cleaned out in preparation for plugging.",
-   "plan_context": "Against the approved rev3.0 program, the crew is still on Step 3 of 23 — clean out and reach TD at 3,793 ft before any cement goes in. The deepest they have reached is about 3,094 ft: roughly 80 ft below the top of the Lower Bolsa (3,017 ft), but still about 100 ft above the Ashton (3,197 ft) and ~700 ft short of TD. The recurring lost circulation lines up with the Bolsa hydrocarbon zones and the top perforation (3,443 ft MD / 3,007 ft TVD) taking fluid. Nothing can be plugged until they tag TD and run the CBL (3,200–1,300 ft); the first cement plug then sets from 3,793 ft up to 3,097 ft — 100 ft above the Ashton.",
-   "program_step": 3
+   "as_of_day": 16,
+   "as_of_date": "2026-06-30",
+   "story_so_far": "A-7i has been on the rig since June 8 (Day 15 as of June 29). The first four days went to rigging up and freeing, cutting, and fishing stuck tubing, with possible casing damage flagged on Day 3. From Day 5 through Day 9 the crew fought recurring sand that kept sloughing back into the wellbore, repeatedly costing circulation and sticking the tubing. Day 10 staged packer tests located the root cause — a split in the casing between 2,575 and 2,603 ft — and the crew demobilized briefly. Day 11 repaired the breach with a cement plug from 2,328 to 2,628 ft plus a hesitation squeeze, shut in at 400 psi. Day 12 proved the repair (500-psi casing test held), then drilled the squeeze cement back out (2,494–2,632 ft) and cleaned to 2,687 ft. Day 13 washed sand from 2,687 to 3,264 ft (largest single-day sand recovery, 197 cu.ft). Day 14 finished the cleanout to the top of the 7\" liner at 3,315 ft and ran a Cement Bond Log on the 8-5/8\" casing to surface. Day 15 marked the turning point: the crew reached total depth (3,793 ft), cleaned the last sand to TD (losing 320 bbls), obtained CalGEM BOP and tag approval, and set the FIRST abandonment cement plug from 3,793 to 3,563 ft (42 cu.ft Class G) — the first barrier across the bottom of the well after two weeks of cleanout and casing repair. Tubing stuck again on pull-out but was worked free at 80K. Casing integrity is restored, the wellbore is clean to TD, and cement-plug placement is now underway. Day 16 was the major plugging day: the crew tagged the Day-15 plug at 3,569 ft (CalGEM-witnessed) and pumped a two-stage cement plug from 3,569 ft to ~2,997 ft (161 cu.ft Class G), sealing the Bolsa oil zones. The report was not marked Job Complete and the upper plugs (across the USDW/freshwater and the surface plug) remain, but the rig has moved to B-11i — A-7i's remaining abandonment steps are pending a return trip or a later Job Complete report.",
+   "plan_context": "Downhole plugs #1 and #2 (bottom to ~2,997 ft) are set, isolating the Bolsa hydrocarbon zones. Per the rev3.0 program, plug #3 (balanced plug across the base of the USDW ~1,603 ft down to 100 ft above BFW ~1,394 ft) and plug #4 (surface plug, cement to surface) are still outstanding, along with the surface casing cut and weld. No Job Complete report is on file.",
+   "program_step": "Through program step ~11 (plugs #1–#2 set); steps for USDW balance plug, surface plug, and casing cut/weld outstanding."
+  },
+  "B-11I": {
+   "as_of_day": 1,
+   "as_of_date": "2026-06-30",
+   "story_so_far": "The rig arrived at B-11i on June 30 (Day 1) after setting the lower abandonment plugs on A-7i. Day 1 was standard well-entry work: rigging up, confirming no hazardous gas, removing the injection tree and flow lines, and releasing the 8-5/8″ packer (the donut locking rams were seized with corrosion and had to be freed). The crew nippled up and function-tested the BOP, pulled the old tubing and packer, ran an 8-5/8″ casing scraper, tagged the top of the 7″ liner at 2,845 ft, and set the bottom-hole assembly at 519 ft to secure the well overnight.",
+   "plan_context": "B-11i's approved abandonment program (rev 3.0) targets a cleanout to total depth of 3,165 ft, then a cement-bond log (2,600–1,300 ft) and a series of plugs: plug #1 up to 2,358 ft (100 ft above the uppermost hydrocarbon zone, top ~2,458 ft), plug #2 to 2,080 ft (100 ft above an upper gas stringer, top ~2,180 ft), a perforate-and-squeeze plus balanced plug across the base of the USDW (~1,580 ft) up to 100 ft above the base of freshwater (BFW ~1,474 ft), and a surface plug at 120 ft to surface. Day 1 only reached the well-entry stage — the crew tagged the top of the liner at 2,845 ft, still about 320 ft above the 3,165 ft cleanout target and well above the first plug interval. Expect the next reports to cover running to TD and the CBL before any cement is pumped.",
+   "program_step": "Steps 1–3 (MIRU, NU/function-test BOPE, begin RIH toward TD 3,165 ft) — well entry underway; cleanout to TD not yet reached."
   }
  }
 }

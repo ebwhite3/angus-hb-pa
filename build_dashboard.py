@@ -75,6 +75,9 @@ for w in wells['wells']:
     if api.isdigit(): api = api.zfill(10)
     w['api'] = api
 
+    # Rig number (declared at mobilization; stored in well_context[well].rig_no).
+    w['rig_no'] = (well_ctx.get(w['well_norm']) or {}).get('rig_no')
+
     # Permit #/link: spreadsheet (via extract_wells.py) first, permits.json fills gaps.
     p = permits.get(w['well_norm'])
     if p:
@@ -124,30 +127,33 @@ for w in wells['wells']:
         # No reports: keep the workbook-derived status and dates (fallback tier).
         w['exec_source'] = 'spreadsheet'
 
-# ---- Banner well: derive from the reconciled rig status ------------------------
+# ---- Active rig wells: derive from the reconciled rig status --------------------
 # A well is "on the rig" only if its latest mobilization has no Job Complete
-# (status == 'rig', sourced from reports). Pick the active well with the most
-# recent report date. If more than one is active, the newest wins and the rest
-# are flagged. If none is active, blank current_rig_well so the banner shows the
-# most recent completion. This replaces the old global-latest-report heuristic
-# that mis-resolved a same-day "Job Complete + new spud" handoff.
+# (status == 'rig', sourced from reports). The project runs UP TO TWO rigs at
+# once, so one OR two active wells is normal — not an error. We publish the full
+# ordered list (most-recent report first) as meta.active_rig_wells; the banner
+# renders one hero per active well (with a toggle when there are two). current_rig_well
+# stays as the first/primary active well for back-compat. A THIRD concurrent well
+# is the real anomaly (a finished well missing its Job Complete) and is flagged.
 def _well_last_date(wn):
     rs = reps_by_well.get(wn)
     return max((r['date'] for r in rs), default='')
 
 active = [w for w in wells['wells'] if w.get('status') == 'rig' and w.get('exec_source') == 'reports']
+active.sort(key=lambda w: _well_last_date(w['well_norm']), reverse=True)
+reports['meta']['active_rig_wells'] = [w['well_norm'] for w in active]
 if active:
-    active.sort(key=lambda w: _well_last_date(w['well_norm']), reverse=True)
     cw = active[0]
     reports['meta']['current_rig_well'] = cw['well_norm']
     cw_rep = max(reps_by_well[cw['well_norm']], key=lambda r: (r['date'], r['day']))
     reports['meta']['current_rig_well_display'] = cw_rep.get('well_display', cw['well_norm'])
-    for w in active[1:]:
-        flags.append(f"{w['well']}: flagged Rig on well at the same time as "
-                     f"{cw['well']} — only one rig is on site; verify a Job Complete "
-                     f"is on file for the finished well.")
+    if len(active) > 2:
+        for w in active[2:]:
+            flags.append(f"{w['well']}: a third well shows Rig on well — the project runs at most "
+                         f"two rigs. Verify a “Job Complete” report is on file for a finished well.")
 else:
     reports['meta']['current_rig_well'] = None
+    reports['meta']['current_rig_well_display'] = None
 
 built_iso = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec='seconds')
 built = datetime.datetime.now().strftime('%B %-d, %Y %-I:%M %p') if os.name != 'nt' else datetime.datetime.now().strftime('%B %d, %Y %I:%M %p')  # fallback only
@@ -275,7 +281,24 @@ details.ftext>summary{font-size:12px;color:var(--ns-blue-dark);font-weight:600;c
 footer{border-top:1px solid var(--line);background:#fff;margin-top:30px;padding:18px 0;font-size:12.5px;color:var(--gray)}
 footer .frow{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
 footer img{height:30px;opacity:.9}
-@media(max-width:700px){ .hmeta{text-align:left;margin-left:0} #q{width:100%;margin-left:0} }
+/* --- Two-rig banner: status strip + toggle --- */
+.rigtag{display:inline-block;background:rgba(255,255,255,.22);border:1px solid rgba(255,255,255,.5);border-radius:6px;padding:0 8px;font-size:.78em;font-weight:700;vertical-align:middle;margin-right:2px}
+.wellctx .rigtag,.wellctx h3 .rigtag{background:var(--ns-blue);color:#fff;border-color:var(--ns-blue)}
+.mrbar{display:flex;gap:14px;align-items:center;background:linear-gradient(90deg,var(--ns-blue-dark),var(--ns-blue));color:#fff;border-radius:10px 10px 0 0;padding:14px 20px;margin:20px 0 0;box-shadow:0 2px 8px rgba(0,80,140,.18)}
+.mrbar .pulse{flex:none;width:14px;height:14px;border-radius:50%;background:#7CFC9A;box-shadow:0 0 0 0 rgba(124,252,154,.7);animation:pulse 1.8s infinite}
+.mrbar h2{margin:0;font-size:16px}
+.rigtabs{display:flex;flex-wrap:wrap;background:#eaf3fb;border:1px solid var(--line);border-top:none;padding:6px}
+.rigchip{flex:1 1 240px;text-align:left;display:flex;flex-wrap:wrap;align-items:baseline;gap:5px 9px;background:#fff;border:1px solid var(--line);border-radius:8px;margin:4px;padding:9px 13px;cursor:pointer;font-family:inherit;color:var(--ink)}
+.rigchip:hover{border-color:var(--ns-blue)}
+.rigchip.on{border-color:var(--ns-blue);box-shadow:0 0 0 2px var(--ns-blue-light);background:var(--ns-blue-light)}
+.rigchip .rc-rig{background:var(--ns-blue);color:#fff;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700}
+.rigchip .rc-well{font-weight:700;font-size:14.5px}
+.rigchip .rc-day{font-size:12.5px;color:var(--gray)}
+.rigchip .rc-phase{flex:1 1 100%;font-size:12px;color:var(--gray);margin-top:2px;line-height:1.35}
+#activehero .banner{border-radius:0 0 10px 10px;margin:0}
+.kpi .ksub{font-size:11px;color:var(--rig);font-weight:600;margin-top:4px;line-height:1.3;white-space:normal}
+.rignum{display:inline-block;background:var(--ns-blue);color:#fff;border-radius:6px;padding:1px 7px;font-size:11px;font-weight:700;margin-left:6px;vertical-align:middle}
+@media(max-width:700px){ .hmeta{text-align:left;margin-left:0} #q{width:100%;margin-left:0} .rigchip{flex:1 1 100%} .mrbar h2{font-size:14.5px} }
 </style>
 </head>
 <body>
@@ -361,28 +384,14 @@ const BCLS = {complete:'b-done', rig:'b-rig', ready:'b-ready', pending:'b-pend'}
 // same-day completion never outranks a new spud.
 const byRecency = (a,b)=> b.date.localeCompare(a.date) || b.day-a.day;
 const bn = document.getElementById('banner');
-// Active well (on the rig now) per the reconciled status.
-let active = null;
-if (meta.current_rig_well) {
-  const r = reports.filter(r=>r.well===meta.current_rig_well).sort(byRecency)[0];
-  if (r && !r.job_complete) active = r;
-}
-// Every report from the latest activity date — completions first, then ongoing work.
-const latestDate = reports.reduce((m,r)=> r.date>m?r.date:m, '');
-const dayReps = reports.filter(r=>r.date===latestDate)
-  .sort((a,b)=> (b.job_complete?1:0)-(a.job_complete?1:0) || a.day-b.day);
-const multi = dayReps.length > 1;
-const block = r => {
-  if (!multi) return `<p>${r.summary}</p>`;
-  const done = r.job_complete;
-  const tag = done ? `✓ ${r.well_display} — Job Complete (Day ${r.day})`
-            : `${(active && r.well===active.well)?'▶ ':''}${r.well_display} — Day ${r.day} · ${r.phase}`;
-  return `<div style="margin-top:.6rem"><div style="font-weight:700;font-size:.95em;opacity:.95">${tag}</div><p style="margin:.15rem 0 0">${r.summary}</p></div>`;
-};
-const body = dayReps.map(block).join('');
-// Claude-authored narrative for the active well: a high-level roll-up of prior
-// days ("story so far") plus the grounded geology/permit/program placement.
 const WN = DATA.reports.well_narrative || {};
+const CTX = DATA.well_context || {};
+const rigNo = {}; wells.forEach(w=>{ if(w.rig_no) rigNo[w.well_norm]=w.rig_no; });
+function dispName(n){ const w=wells.find(x=>x.well_norm===n); const r=reports.find(x=>x.well===n); return (w&&w.well)||(r&&r.well_display)||n; }
+function latestRep(n){ return reports.filter(r=>r.well===n).sort(byRecency)[0]; }
+function rigTag(n){ return rigNo[n]?`<span class="rigtag">Rig ${rigNo[n]}</span> `:''; }
+
+// Claude-authored narrative for a well: story-so-far roll-up + plan placement.
 function narrFor(wnorm){
   const n = WN[wnorm]; if(!n) return '';
   const parts = [];
@@ -390,33 +399,78 @@ function narrFor(wnorm){
   if(n.plan_context) parts.push(`<div class="bnarr-h">Where this stands against the plan</div><p>${n.plan_context}</p>`);
   return parts.length ? `<div class="bnarr">${parts.join('')}</div>` : '';
 }
-if (active) {
-  bn.innerHTML = `<div class="banner"><div class="pulse"></div><div>
-    <h2>Rig is currently on well ${active.well_display} — Day ${active.day} (${active.phase})</h2>
-    ${body}
-    ${narrFor(active.well)}
-    <div class="bdate">Latest field report: ${fmtDate(latestDate)}${multi?` &middot; ${dayReps.length} updates`:` &middot; ${dayReps[0].subject}`}</div>
-  </div></div>`;
-} else if (dayReps.length) {
-  const lastDone = dayReps.filter(r=>r.job_complete).slice(-1)[0] || dayReps[0];
-  bn.innerHTML = `<div class="banner" style="background:linear-gradient(90deg,#1e8a4c,#27a35d)"><div>
-    <h2>No well currently active — last job complete on ${lastDone.well_display}</h2>
-    ${body}
-    <div class="bdate">Latest field report: ${fmtDate(latestDate)}</div>
+
+// Report-sourced wells currently on a rig (from the reconciler), each with an
+// open (non-complete) latest report. Length is 1 or 2 in normal operation.
+const actives = (meta.active_rig_wells || (meta.current_rig_well?[meta.current_rig_well]:[]))
+  .filter(n=>{ const r=latestRep(n); return r && !r.job_complete; });
+
+// Full hero card for one active well.
+function heroFor(n){
+  const r = latestRep(n);
+  return `<div class="banner"><div class="pulse"></div><div>
+    <h2>${rigTag(n)}Rig is on ${dispName(n)} — Day ${r.day} (${r.phase})</h2>
+    <p>${r.summary}</p>
+    ${narrFor(n)}
+    <div class="bdate">Latest field report: ${fmtDate(r.date)} &middot; ${r.subject}</div>
   </div></div>`;
 }
 
-// Active-well context card: zone tops, key regulatory depths, cement plug
-// schedule, the approved program (embedded as text), and links to the hosted
-// wellbore diagrams. Renders only when the active rig well has a well_context entry.
-(function renderWellCtx(){
-  const el = document.getElementById('wellctx');
-  if(!el) return;
-  const wnorm = meta.current_rig_well;
-  const c = (DATA.well_context||{})[wnorm];
-  if(!c){ el.innerHTML=''; return; }
+// Render the selected active well into both the hero slot and the context card.
+function renderActive(n){
+  const hero = document.getElementById('activehero'); if(hero) hero.innerHTML = heroFor(n);
+  const wc = document.getElementById('wellctx'); if(wc) wc.innerHTML = ctxHtml(n);
+  document.querySelectorAll('.rigchip').forEach(c=> c.classList.toggle('on', c.dataset.w===n));
+  try{ localStorage.setItem('angus_active_well', n); }catch(e){}
+}
+
+if (actives.length >= 2) {
+  // Two rigs running concurrently: a status strip (always shows both) that doubles
+  // as a toggle; the selected well's full hero + context render below it.
+  const names = actives.map(dispName);
+  const chips = actives.map(n=>{
+    const r=latestRep(n);
+    return `<button class="rigchip" data-w="${n}">
+      <span class="rc-rig">Rig ${rigNo[n]||'?'}</span>
+      <span class="rc-well">${dispName(n)}</span>
+      <span class="rc-day">Day ${r.day}</span>
+      <span class="rc-phase">${r.phase}</span></button>`;
+  }).join('');
+  bn.innerHTML = `<div class="mrbar"><div class="pulse"></div>
+      <h2>${actives.length} rigs active — plugging ${names.join(' and ')} concurrently</h2></div>
+    <div class="rigtabs">${chips}</div>
+    <div id="activehero"></div>`;
+  bn.querySelectorAll('.rigchip').forEach(c=> c.addEventListener('click', ()=> renderActive(c.dataset.w)));
+  let init = actives[0];
+  try{ const s=localStorage.getItem('angus_active_well'); if(s && actives.indexOf(s)>=0) init=s; }catch(e){}
+  renderActive(init);
+} else if (actives.length === 1) {
+  bn.innerHTML = heroFor(actives[0]);
+  const wc=document.getElementById('wellctx'); if(wc) wc.innerHTML = ctxHtml(actives[0]);
+} else {
+  // No well active: show the most recent Job Complete.
+  const latestDate = reports.reduce((m,r)=> r.date>m?r.date:m, '');
+  const dayReps = reports.filter(r=>r.date===latestDate).sort((a,b)=> (b.job_complete?1:0)-(a.job_complete?1:0) || a.day-b.day);
+  if(dayReps.length){
+    const lastDone = dayReps.filter(r=>r.job_complete).slice(-1)[0] || dayReps[0];
+    bn.innerHTML = `<div class="banner" style="background:linear-gradient(90deg,#1e8a4c,#27a35d)"><div>
+      <h2>No well currently active — last job complete on ${lastDone.well_display}</h2>
+      <p>${lastDone.summary}</p>
+      <div class="bdate">Latest field report: ${fmtDate(latestDate)}</div>
+    </div></div>`;
+  }
+  const wc=document.getElementById('wellctx'); if(wc) wc.innerHTML='';
+}
+
+// Context card (zone tops, key regulatory depths, cement plug schedule, embedded
+// program, hosted diagram links) for ONE well \u2014 returns an HTML string, or '' if
+// the well has no well_context entry. Called per active well by renderActive().
+function ctxHtml(wnorm){
+  const c = CTX[wnorm];
+  if(!c) return '';
   const num = n => (n==null?'':Number(n).toLocaleString('en-US'));
   const sub = [];
+  if(rigNo[wnorm]) sub.push(`Rig ${rigNo[wnorm]}`);
   if(c.permit && c.permit.no) sub.push(`Permit #${c.permit.no}`);
   if(c.permit && c.permit.approved_date) sub.push(`approved ${fmtDate(c.permit.approved_date)}`);
   if(c.permit && c.permit.critical_well) sub.push('critical well');
@@ -441,8 +495,8 @@ if (active) {
   const step = (WN[wnorm]||{}).program_step || 0;
   const prog = (c.program&&c.program.steps||[]).map((s,i)=>`<li class="${i+1===step?'cur':''}">${s}</li>`).join('');
 
-  el.innerHTML = `<div class="wellctx">
-    <h3>Active well \u2014 ${c.well_display}: program, plugs &amp; documents</h3>
+  return `<div class="wellctx">
+    <h3>${rigTag(wnorm)}${c.well_display}: program, plugs &amp; documents</h3>
     <p class="wsub">${sub.join(' &middot; ')}</p>
     ${docs.length?`<div class="docbtns">${docs.join('')}</div>`:''}
     <div class="wgrid" style="margin-top:14px">
@@ -454,22 +508,23 @@ if (active) {
       <ol class="prog">${prog}</ol></details>`:''}
     <div class="clab">Source: CalGEM NOI Permit Acceptance Notice${c.permit&&c.permit.no?` (#${c.permit.no})`:''} and approved Abandonment Program${c.program?` ${c.program.rev}`:''}. Depths referenced to KB.</div>
   </div>`;
-})();
+}
 
 // KPIs
 const count = s => wells.filter(w=>w.status===s).length;
 // Total wells whose NOI permit is approved — includes abandoned, on-rig, and
 // ready wells (every approved well carries an "0. Approved" NOI status).
 const approvedTotal = wells.filter(w=>(w.noi_status||'').trim().startsWith('0')).length;
+const rigList = actives.map(n=> (rigNo[n]?`Rig ${rigNo[n]} · `:'')+dispName(n)).join(', ');
 const kp = [
   ['k-total', wells.length, 'Total wells'],
   ['k-appr', approvedTotal, 'Permits approved (total)'],
   ['k-done', count('complete'), 'Plugged & abandoned'],
-  ['k-rig', count('rig'), 'Rig on well now'],
+  ['k-rig', count('rig'), 'Wells being plugged now', rigList],
   ['k-ready', count('ready'), 'Approved — awaiting rig'],
   ['k-pend', count('pending'), 'NOI under CalGEM review'],
 ];
-document.getElementById('kpis').innerHTML = kp.map(k=>`<div class="kpi ${k[0]}"><div class="n">${k[1]}</div><div class="l">${k[2]}</div></div>`).join('');
+document.getElementById('kpis').innerHTML = kp.map(k=>`<div class="kpi ${k[0]}"><div class="n">${k[1]}</div><div class="l">${k[2]}</div>${k[3]?`<div class="ksub">${k[3]}</div>`:''}</div>`).join('');
 
 // Progress bar
 const tot = wells.length;
@@ -501,7 +556,7 @@ function render(filter, q){
     return true;
   }).map(w=>`<tr class="${w.status==='rig'?'rig-row':''}">
     <td><span class="badge ${BCLS[w.status]}">${LABEL[w.status]}</span></td>
-    <td><b>${w.well}</b></td>
+    <td><b>${w.well}</b>${w.status==='rig'&&w.rig_no?` <span class="rignum">Rig ${w.rig_no}</span>`:''}</td>
     <td>${w.api||''}</td>
     <td>${w.permit_url?`<a href="${w.permit_url}" target="_blank" rel="noopener" title="Open NOI Permit Acceptance Notice (Dropbox)">${w.permit}</a>`:(w.permit||'<span class="muted">&mdash;</span>')}</td>
     <td>${(w.noi_status||'').replace(/^\d+\.\s*/,'')}</td>
@@ -543,13 +598,15 @@ function renderReports(){
   const f=sel.value;
   let norms = repNorms.slice().filter(n=> f==='all' || n===f);
   const lastDate = n => reports.filter(r=>r.well===n).reduce((m,r)=> r.date>m?r.date:m,'');
+  const activeSet = new Set(actives);
   norms.sort((a,b)=>{
-    if(a===meta.current_rig_well) return -1; if(b===meta.current_rig_well) return 1;
+    const aa=activeSet.has(a), ab=activeSet.has(b);
+    if(aa!==ab) return aa?-1:1;
     return lastDate(b).localeCompare(lastDate(a));
   });
   document.getElementById('reports').innerHTML = norms.map(n=>{
     const rs=reports.filter(r=>r.well===n).sort((a,b)=> b.date.localeCompare(a.date)||b.day-a.day);
-    const w=normMeta[n]; const isActive=(n===meta.current_rig_well);
+    const w=normMeta[n]; const isActive=actives.indexOf(n)>=0;
     const dd=rs.map(r=>r.day); const dmin=Math.min(...dd), dmax=Math.max(...dd); const st=w?w.status:'';
     const badge = st?`<span class="badge ${BCLS[st]}">${LABEL[st]}</span>`:'';
     const subcards = rs.map(r=>`
@@ -563,7 +620,7 @@ function renderReports(){
       </details>`).join('');
     return `<div class="wellcard ${isActive?'active':''}">
       <div class="wcard-top"><span class="wcard-well">${wellDisplay(n)}</span>${badge}
-        <span class="wcard-meta">Days ${dmin}\u2013${dmax} \u00b7 ${rs.length} report${rs.length>1?'s':''}</span></div>
+        <span class="wcard-meta">Days ${dmin}–${dmax} · ${rs.length} report${rs.length>1?'s':''}</span></div>
       <div class="wcard-sum">${overallSummary(n)}</div>
       <div class="wcard-days">${subcards}</div>
     </div>`;

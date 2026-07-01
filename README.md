@@ -54,6 +54,25 @@ active it shows the most recent Job Complete ("No well currently active …").
 P&A-complete (likely a missing Job Complete report), or a well is `rig` with no new report in >3 days.
 Re-entries are handled by resetting the day-count block whenever crew Day-N drops.
 
+## Concurrent rigs (1 or 2)
+
+The project runs **one or two workover rigs at a time**. `build_dashboard.py` publishes every
+report-sourced "rig" well in `meta.active_rig_wells` (ordered most-recent report first);
+`current_rig_well` is the first entry, kept for back-compat. **Two active wells is normal, not an
+error** — the old "only one rig is on site" flag was removed. A **third** concurrent rig well is the
+real anomaly (usually a finished well missing its Job Complete) and is flagged.
+
+- **Rig numbers are declared, not parsed.** The rig number lives in the `.xlsm` attached to each Daily
+  Rig Report, which the Gmail connector does not expose (it returns the attachment filename, not its
+  bytes). Record the assignment in `well_context.json` under the well's `rig_no` (e.g. `A-7I` -> `27`,
+  `B-11I` -> `5`) when a rig mobilizes. If the `Engineering/Daily Reports` Dropbox folder is ever
+  mounted, the number can instead be parsed straight from the workbook.
+- **Page UI.** With two rigs the banner shows an "N rigs active" bar, a status strip that always lists
+  both rigs (`Rig NN | well | Day N | phase`) and doubles as a toggle, and one full hero + context card
+  for the selected well (selection remembered via `localStorage`). With one rig it falls back to the
+  single-banner layout. A "Wells being plugged now" KPI and a rig-number badge on each rig row in the
+  Master Well List round it out.
+
 ## Daily refresh task (scheduled in Cowork)
 
 1. Search Gmail: `from:JMacias@ewscorp.net subject:"Daily Rig Report" newer_than:3d`; fetch any thread newer than `meta.last_email_date`.
@@ -162,4 +181,41 @@ Three additions layer geologic/permit/program context onto the rig data:
   Cloudflare alongside the page and linked from the table (Docs column) and the context card.
   Because these live in `site/`, **the deploy must upload the whole `site/` tree, not just
   index.html** (see Deploy). Source files for the latest revisions live in the per-well
-  `NOI Prep/<well> NOI ...` folders; the as-subm
+  `NOI Prep/<well> NOI ...` folders; the as-submitted set also sits in
+  `NOI Prep/CalGEM Submittals/Submitted NOIs/<API>_<well>/`. Some NOI Prep files are Dropbox
+  cloud-only and unreadable from the sandbox until made available offline.
+
+## Deploy (Cloudflare Pages — direct upload)
+
+**Live URL: https://angus-hb-pa.pages.dev** — moved from Netlify on 2026-06-06 to stop per-deploy
+credit charges. Cloudflare Pages direct upload is free with unlimited bandwidth; each dashboard is its
+own Pages project and the shared `00_Resources/.cloudflare.json` (`token`, `account_id`) covers all of them.
+
+```bash
+cd "Angus Dashboard"
+export CLOUDFLARE_API_TOKEN=$(python3 -c "import json;print(json.load(open('.../00_Resources/.cloudflare.json'))['token'])")
+export CLOUDFLARE_ACCOUNT_ID=$(python3 -c "import json;print(json.load(open('.../00_Resources/.cloudflare.json'))['account_id'])")
+npx --yes wrangler@4 pages deploy site --project-name=angus-hb-pa --branch=production --commit-dirty=true
+# Verify
+curl -sI "https://angus-hb-pa.pages.dev/" | grep -i content-type   # must be text/html
+```
+
+Direct upload pushes the prebuilt `site/` folder — no Netlify/Cloudflare CI build runs, so it doesn't
+count against build quotas. `npx` re-downloads Wrangler each run (fresh sandbox); that's expected.
+
+**To revert to Netlify:** see `REVERT-TO-NETLIFY.md`. The Netlify site, `.netlify.json`, and the
+file-digest recipe are left intact, so reverting is just swapping this deploy step back.
+
+## Notes
+
+- Well name normalization: `A-8 I` (xlsx) ≡ `A-8i` (emails) → `A-8I` internally. Reports key the
+  normalized name as `well`; `wells.json` uses `well_norm`.
+- `Rig Days` from the workbook is **no longer used** — rig days now come from the crew Day-N count in the
+  reports (sidesteps the negative-value formula artifacts entirely).
+- **API leading zero:** both `extract_wells.py` and `build_dashboard.py` zero-pad the 10-digit API
+  (`zfill(10)`), so a value stored as a number (`405921419`) is restored to `0405921419`. Excel's
+  `0000000000` display format hides the dropped zero, but openpyxl reads the raw number — the zfill makes that moot.
+- Status derivation (see Source of truth): reports → `complete` / `rig`; workbook NOI `0. Approved` →
+  `ready`; else `pending`.
+- Spreadsheet has duplicate variants (conflicted copies, dated copies). **Source of truth: `P&A NOI Progress Report-v2.xlsx`** per Eric, 2026-06-05.
+- Eric will add more tracked items later (e.g., fire department signoff is already a column; future: site restoration, etc.).
